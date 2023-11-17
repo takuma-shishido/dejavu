@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    ports:
+      - '1600:1600'
+    # .envで定義した変数をそれぞれに代入
+    environment:
+      MYSQL_DATABASE: MYSQL_DATABASE
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      MYSQL_USER: MYSQL_USE
+      MYSQL_PASSWORD: MYSQL_PASSWORD
+      TZ: TZ
+    volumes:
+      - ./volumes/mysqldata/flask:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
