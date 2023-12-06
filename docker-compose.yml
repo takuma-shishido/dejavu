@@ -11,6 +11,11 @@ services:
       MYSQL_PASSWORD: dejavu
       TZ: 'Asia/Tokyo'
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    healthcheck:
+      test: "mysqladmin -h127.0.0.1 -P3306 -uroot -proot ping"
+      interval: 1s
+      timeout: 3s
+      retries: 10
 
   web:
     build: .
@@ -20,4 +25,5 @@ services:
     ports:
       - "8001:8001"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
