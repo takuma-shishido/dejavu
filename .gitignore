@@ -1,4 +1,5 @@
 __pycache__
 /volumes
 /db
+/mysql_data
 .DS_Store
