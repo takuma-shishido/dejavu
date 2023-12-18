@@ -1,0 +1,70 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Dejavu</title>
+</head>
+
+<body bgcolor="#EFEFEF">
+    <!-- 一応 logo -->
+    <div class="w-32 pt-3 ">
+
+        <img class="text-2xl w-20 fixed" src="../static/img/logo-sub.PNG"></img>
+    </div>
+    <!-- <div class="ml-10 mt-10 text-2xl">logo</div> -->
+    <div class="text-center m-10 flex-wrap inset-0 flex items-center justify-center">
+        <!-- write continue button -->
+        <button
+            class="bg-neutral-300 rounded-ss-3xl rounded-es-3xl w-72 h-44 content-center items-center flex justify-center"><img
+                class="w-16" src="../static/img/edit-book.png" alt="plus button">
+        </button>
+        <div class="bg-neutral-200 w-6/12 h-44 p-5 flex justify-center items-start gap-4 ">
+            <img src="../static/img/medal.png" class="ml-96 mr-10 object-cover h-20 w-96" alt="medal"></img>
+            <div>
+                <!-- dummy text -->
+                <div class="text-3xl font-sans text-left break-words line-clamp-2 w-96 ">Amazing Story</div>
+                <div class="text-xl font-sans break-words line-clamp-3 text-left pt-5 w-2/4">
+                    You are an intelligent person,
+                    my mother told me.
+                    But I think it isn't.
+                    dfkasdjfajsdlfjasjdlfjlasdjlkfjaskdjfjasdjfkajsdkjfasjdfjasdjflajsdlkfjasdjfkjasdfja
+                </div>
+            </div>
+
+        </div>
+        <!-- create book button -->
+        <button
+            class="bg-neutral-400 rounded-ee-3xl rounded-se-3xl w-72 h-44 content-center items-center flex justify-center"><img
+                class="w-11" src="../static/img/plus.png" alt="plus button">
+        </button>
+        <div class="flex overflow-x-auto mt-28 break-words line-clamp-3 h-80">
+            {% for item in dummy_top_data %}
+            <!-- 書籍の表紙の画像 -->
+            <div class="h-72 bg-neutral-500 p-28 rounded-e-3xl"></div>
+            <div class="flex flex-col w-96 h-10 ">
+                <!-- book title ※item.titleのところで改行すると壊れる-->
+                <div class="w-56 text-left text-2xl font-sans pl-10 pt-5 pb-16 break-words line-clamp-3 truncate">{{ item.title }}</div>
+                <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->
+                <div class="w-72 h-20 text-left  font-sans px-10 text-ellipsis">{{ item.description }}</div>
+                <!-- Read button  -->
+                <button class="w-36 h-36 bg-neutral-700 p-4 mt-10 ml-10 rounded-2xl text-gray-50">Read</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+        <!-- books -->
+        <div class="grid grid-cols-4 gap-20 text-center m-14 flex-wrap inset-0 items-center justify-center">
+            {% for book in dummy_book_data %}
+                <div class="flex flex-col text-center flex-wrap inset-0 items-center justify-center">
+                    <!-- thumbnail of book -->
+                    <img src="{{ book.image_url }}" alt="dummy_image" class="h-64 rounded-e-3xl w-56 object-cover">
+                    <button class="w-32 h-14 bg-neutral-700 -m-8 rounded-2xl text-gray-50">Read</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
