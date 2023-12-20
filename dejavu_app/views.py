@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
 def home(request):
     dummy_top_data = [
         {
@@ -112,3 +113,9 @@ class LogoutView(BaseLogoutView):
 
 class IndexView(TemplateView):
     template_name = "index.html"
+
+# create_novel画面
+def create_novel(request):
+    create_novel_info = ["title", "imag"]
+    context = {"create_novel_info" : create_novel_info}
+    return render(request, "create_novel.html", context)
