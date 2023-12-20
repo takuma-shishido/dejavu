@@ -7,6 +7,8 @@ from .forms import SignUpForm, LoginFrom
 from django.contrib.auth.decorators import login_required
 
 
+
+
 # Create your views here.
 
 def home(request):
@@ -119,3 +121,11 @@ def create_novel(request):
     create_novel_info = ["title", "imag"]
     context = {"create_novel_info" : create_novel_info}
     return render(request, "create_novel.html", context)
+  
+# write_continue画面（仮置き）
+def write_continue(request):
+    sample_book_info = ["title", "img", "description", "story"]
+
+    context = {"sample_book_info" : sample_book_info}
+    return render(request, "write_continue.html", context)
+
