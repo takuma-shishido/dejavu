@@ -7,17 +7,32 @@
     <title>Dejavu</title>
 </head>
 <body>
-    <div style="width: 100%; height: 100%; position: relative; background: white">
-        <div style="width: 492px; height: 487px; left: 87px; top: 309px; position: absolute; background: #D9D9D9; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 36px; border: 1px black solid"></div>
-        <div style="left: 102px; top: 137px; position: absolute; color: black; font-size: 50px; font-family: Inter; font-weight: 400; word-wrap: break-word">[タイトル]　の続きを書く</div>
-        <div style="width: 248px; height: 71px; left: 632px; top: 1788px; position: absolute">
-            <div style="width: 248px; height: 71px; left: 0px; top: 0px; position: absolute; background: #918279; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px"></div>
-            <button style="width: 140.46px; left: 54.87px; top: 16px; position: absolute; text-align: center; color: white; font-size: 32px; font-family: Inter; font-weight: 400; word-wrap: break-word">投稿</button>
+    <nav class="p-5 bg-green-900 shadow">
+        <h1 class="text-white">ロゴ</h1>
+    </nav>
+    <div class="ml-10 mt-5 text-4xl" >[タイトル]　の続きを書く</div>
+    <div class="flex justify-around">
+        <div>
+            <div class="mt-10 w-96 h-96 bg-gray-100 flex items-center justify-center">
+                <p>アップロードされた画像</p>
+            </div>
         </div>
-        <div style="left: 157px; top: 533px; position: absolute; text-align: center; color: black; font-size: 32px; font-family: Inter; font-weight: 400; word-wrap: break-word">アップロードされた画像</div>
-        <div style="width: 279px; height: 73px; left: 896px; top: 309px; position: absolute; text-align: center; color: black; font-size: 50px; font-family: Inter; font-weight: 400; word-wrap: break-word">あらすじ</div>
-        <div style="width: 191px; height: 52px; left: 661px; top: 937px; position: absolute; color: black; font-size: 40px; font-family: Inter; font-weight: 400; word-wrap: break-word">[タイトル]<br/></div>
-        <div style="width: 721px; height: 482px; left: 396px; top: 1130px; position: absolute; background: #D9D9D9"></div>
-    </div>
 
+        <div>
+            <div class="mt-10 text-4xl">あらすじ</div>
+        </div>
+    </div>
+    <fotm>
+        <div class="flex flex-col content-center text-center">
+
+            <div class=" text-4xl mt-20">[タイトル](承)</div>
+            <div class="mt-10">
+                <textarea class="w-96 h-96 bg-gray-100" placeholder="ここに小説を書きましょう！"></textarea>
+            </div>
+
+            <div>
+                <button type="submit" class="text-white bg-stone-500 hover:bg-stone-400 rounded-3xl p-3 w-60 mt-10">投稿</button>
+            </div>
+        </div>
+    </fotm>
 </body>
