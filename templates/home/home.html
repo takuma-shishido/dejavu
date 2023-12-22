@@ -8,64 +8,80 @@
 </head>
 
 <body bgcolor="#EFEFEF">
-    <a class="text-2xl text-right" href="{% url 'accounts:logout' %}">logout</a>
+    {% if request.user.is_authenticated == True%}
+    <div class="flex flex-row text-right pt-5">
+        <div class="text-2xl px-5">{{ request.user.first_name }}</div>
+        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center text-right" href="{% url 'accounts:logout' %}">
+            <h1 class="text-xl text-black" >Logout</h1>
+        </a>
+    </div>
+    {% else %}
+    <div class="flex-row text-right pt-5  pl-5">
+        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center" href="{% url 'accounts:login' %}">
+            <h1 class="text-xl text-black" >Login</h1>
+        </a>
+    </div>
+    {% endif %}
     <!-- 一応 logo -->
-    <div class="w-32 pt-3 ">
+    <!-- <div class="w-32 ">
 
         <img class="text-2xl w-20 fixed" src="../static/img/logo-sub.PNG"></img>
-    </div>
+    </div> -->
     <!-- <div class="ml-10 mt-10 text-2xl">logo</div> -->
     <div class="text-center m-10 flex-wrap inset-0 flex items-center justify-center">
         <!-- write continue button -->
-        <button
+        <!-- ここはis_finishがfalseのデータだけを取り出して、homeに表示させる？？（別のページ作るか〜） -->
+        <a href=""
             class="bg-neutral-300 rounded-ss-3xl rounded-es-3xl w-72 h-44 content-center items-center flex justify-center"><img
-                class="w-16" src="../static/img/edit-book.png" alt="plus button">
-        </button>
-        <div class="bg-neutral-200 w-6/12 h-44 p-5 flex justify-center items-start gap-4 ">
-            <img src="../static/img/medal.png" class="ml-96 mr-10 object-cover h-20 w-96" alt="medal"></img>
+                class="w-16" src="../static/img/edit-book.png" alt="write continue button">
+        </a>
+        <div class="bg-neutral-200 w-6/12 h-44 p-5 flex justify-center items-center text-center gap-4 ">
+            <img src="../static/img/medal.png" class="pl-40 mr-10 object-cover h-20 w-96" alt="medal"></img>
             <div>
                 <!-- dummy text -->
-                <div class="text-3xl font-sans text-left break-words line-clamp-2 w-96 ">Amazing Story</div>
+                <div class="text-3xl font-sans text-left break-words line-clamp-2 w-96 ">{{ top_novel.title }}</div>
                 <div class="text-xl font-sans break-words line-clamp-3 text-left pt-5 w-2/4">
-                    You are an intelligent person,
-                    my mother told me.
-                    But I think it isn't.
-                    dfkasdjfajsdlfjasjdlfjlasdjlkfjaskdjfjasdjfkajsdkjfasjdfjasdjflajsdlkfjasdjfkjasdfja
+                    {{ top_novel.synopsis }}
                 </div>
             </div>
 
         </div>
         <!-- create book button -->
-        <button
+        <a href="{% url 'dejavu_app:create_novel' %}"
             class="bg-neutral-400 rounded-ee-3xl rounded-se-3xl w-72 h-44 content-center items-center flex justify-center"><img
                 class="w-11" src="../static/img/plus.png" alt="plus button">
-        </button>
-        <div class="flex overflow-x-auto mt-28 break-words line-clamp-3 h-80">
-            {% for item in dummy_top_data %}
+        </a>
+        <div class="flex overflow-x-auto mt-28 break-words line-clamp-3 h-80 ">
+            {% for novel in middle_novels %}
             <!-- 書籍の表紙の画像 -->
             <div class="h-72 bg-neutral-500 p-28 rounded-e-3xl"></div>
             <div class="flex flex-col w-96 h-10 ">
                 <!-- book title ※item.titleのところで改行すると壊れる-->
-                <div class="w-56 text-left text-2xl font-sans pl-10 pt-5 pb-16 break-words line-clamp-3 truncate">{{ item.title }}</div>
+                <div class="w-56 text-left text-2xl font-sans pl-10 pt-5 pb-16 break-words line-clamp-3 truncate">
+                    {{novel.title }}</div>
                 <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->
-                <div class="w-72 h-20 text-left  font-sans px-10 text-ellipsis">{{ item.description }}</div>
+                <div class="w-72 h-20 text-left  font-sans px-10 text-ellipsis">{{ novel.synopsis }}</div>
                 <!-- Read button  -->
                 <button class="w-36 h-36 bg-neutral-700 p-4 mt-10 ml-10 rounded-2xl text-gray-50">Read</button>
             </div>
             {% endfor %}
         </div>
     </div>
-        <!-- books -->
-        <div class="grid grid-cols-4 gap-20 text-center m-14 flex-wrap inset-0 items-center justify-center">
-            {% for book in dummy_book_data %}
-                <div class="flex flex-col text-center flex-wrap inset-0 items-center justify-center">
-                    <!-- thumbnail of book -->
-                    <img src="{{ book.image_url }}" alt="dummy_image" class="h-64 rounded-e-3xl w-56 object-cover">
-                    <button class="w-32 h-14 bg-neutral-700 -m-8 rounded-2xl text-gray-50">Read</button>
-                </div>
-            {% endfor %}
+    <!-- books -->
+    <div class="grid grid-cols-4 gap-20 text-center m-14 flex-wrap inset-0 items-center justify-center mb-20">
+        {% for novel in novels %}
+        <div class="flex flex-col text-center flex-wrap inset-0 items-center justify-center mb-10">
+            <!-- thumbnail of book -->
+            <div class="h-64 rounded-e-3xl w-56 object-cover bg-neutral-500"></div>
+            <!-- <img src="{{ novel.image_url }}" alt="dummy_image" class="h-64 rounded-e-3xl w-56 object-cover"> -->
+            <button class="w-32 h-14 bg-neutral-700 -m-8 rounded-2xl text-gray-50">Read</button>
         </div>
+        {% endfor %}
     </div>
+    </div>
+    <!-- {% for novel in novels %}
+        <div>{{ novel.title }}</div>
+    {% endfor %} -->
 </body>
 
 </html>
