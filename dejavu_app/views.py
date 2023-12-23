@@ -121,11 +121,37 @@ def create_novel(request):
     create_novel_info = ["title", "imag"]
     context = {"create_novel_info" : create_novel_info}
     return render(request, "create_novel.html", context)
-  
+
 # write_continue画面（仮置き）
 def write_continue(request):
     sample_book_info = ["title", "img", "description", "story"]
 
     context = {"sample_book_info" : sample_book_info}
     return render(request, "write_continue.html", context)
+
+# myProfile画面
+def myProfile(request):
+    dummy_top_data = [
+        {
+            "title": "amazing storyadfjlakdjsfjaksdjfajdsfdsasdfasdkfjasdkflsdf",
+            "image_url": "https://m.media-amazon.com/images/I/416l93denJL._AC_UF1000,1000_QL80_.jpg",
+        },
+        {
+            "title": "WAWARA",
+            "image_url": "https://m.media-amazon.com/images/I/71PRHp6lTXL._AC_UF1000,1000_QL80_.jpg",
+
+        },
+        {
+            "title": "Users can do it",
+            "image_url": "https://m.media-amazon.com/images/I/71EunwGQXML._AC_UF1000,1000_QL80_.jpg",
+        },
+        {
+            "title": "awesome story",
+            "image_url": "https://m.media-amazon.com/images/I/91B9Jfvrq4L._AC_UF1000,1000_QL80_.jpg",
+        },
+    ]
+    # myProfile_info = []
+    # context = {"myProfile_info" : myProfile_info}
+    context = {"dummy_top_data": dummy_top_data}
+    return render(request, "myProfile.html", context)
 
