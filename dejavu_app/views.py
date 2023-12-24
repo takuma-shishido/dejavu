@@ -101,11 +101,6 @@ def home(request):
         context = {'novels': novels, 'top_novel': top_novel, 'middle_novels': middle_novels}
     except:
         print('要素数が8未満です or 5未満です')
-    # top_novel = Novels.objects.only
-
-    # context = {"dummy_top_data": dummy_top_data, "dummy_book_data": dummy_book_data}
-    # template_name = "novel_list.html"
-    # model = Novels
     return render(request, "home/home.html", context)
 
 class SignupView(CreateView):
