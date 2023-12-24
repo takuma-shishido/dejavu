@@ -10,50 +10,48 @@
     <nav class="p-5 bg-green-900 shadow">
         <h1 class="text-white">ロゴ</h1>
     </nav>
-    <div class="flex justify-around h-screen">
-        <div class="mt-5 w-4/10 text-center">
-            <h1 class="text-5xl mt-5">小説作成画面</h1>
-            <div class="flex items-center justify-center text-xl mt-32 w-4/4 h-96 bg-gray-100">
-                <div class="flex-col">
-                    <p>画像をアップロード</p>
-                    <input class="ms-10" type="file" name="example" accept="image/jpeg, image/png">
+    <form action="" method="POST">
+        <div class="flex justify-around h-screen">
+            <div class="mt-5 w-4/10 text-center">
+                <h1 class="text-5xl mt-5">小説作成画面</h1>
+                <div class="flex items-center justify-center text-xl mt-32 w-4/4 h-96 bg-gray-100">
+                    <div class="flex-col">
+                        <p>画像をアップロード</p>
+                        <input class="ms-10" type="file" name="example" accept="image/jpeg, image/png">
+                    </div>
                 </div>
             </div>
+            <div class="mt-48 w-6/10">
+                <form action="">
+                    <div class="mt-5">
+                        <label class="text-4xl" for="">
+                            タイトル：
+                            <td class="bg-gray-100"> {{ form.title }}</td>
+                        </label>
+                    </div>            <div class="mt-5">
+                        <label class="text-4xl" for="">
+                            あらすじ：
+                            <td type="text" class="bg-gray-100"> {{ form.synopsis}} </td>
+                        </label>
+                    </div>
+                    <div class="mt-5">
+                        <label class="text-4xl" for="">
+                            起承転結の起：
+                            <div class="w-full mb-4">
+                                <!-- <textarea rows="4" class="w-full bg-gray-100" required></textarea> -->
+                                <td type="text" class="bg-gray-100"> {{ form.introduction }} </td>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
+                        <button type="submit" class="text-white">
+                            投稿
+                        </button>
+                        {% csrf_token %}
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="mt-48 w-6/10">
-            <form action="">
-                <div class="mt-5">
-                    <label class="text-4xl" for="">
-                        投稿者：
-                        <input type="text" class="bg-gray-100">
-                    </label>
-                </div>
-                <div class="mt-5">
-                    <label class="text-4xl" for="">
-                        タイトル：
-                        <input type="text" class="bg-gray-100">
-                    </label>
-                </div>            <div class="mt-5">
-                    <label class="text-4xl" for="">
-                        あらすじ：
-                        <input type="text" class="bg-gray-100">
-                    </label>
-                </div>
-                <div class="mt-5">
-                    <label class="text-4xl" for="">
-                        起承転結の起：
-                        <div class="w-full mb-4">
-                            <textarea rows="4" class="w-full bg-gray-100" required></textarea>
-                        </div>
-                    </label>
-                </div>
-                <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
-                    <button type="submit" class="text-white">
-                        投稿
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+    </form>
 </body>
 </html>

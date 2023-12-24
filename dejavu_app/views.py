@@ -1,10 +1,15 @@
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.views import LoginView as BaseLoginView,  LogoutView as BaseLogoutView
 from django.urls import reverse_lazy
-from .forms import SignUpForm, LoginFrom
+from .forms import SignUpForm, LoginFrom, NovelCreateForm
 from django.contrib.auth.decorators import login_required
+from django.views import generic
+from .models import Novels
+from django.utils.decorators import method_decorator
 
 
 
@@ -86,9 +91,16 @@ def home(request):
             "image_url": "https://m.media-amazon.com/images/I/71ajQBRHXiL._AC_UF1000,1000_QL80_.jpg"
         },
     ]
-
-    context = {"dummy_top_data": dummy_top_data, "dummy_book_data": dummy_book_data}
-
+    novels = Novels.objects.all()
+    context = {
+        'novels': novels
+    }
+    try:
+        top_novel = Novels.objects.get(id=8)
+        middle_novels = Novels.objects.filter(id__lte=5)
+        context = {'novels': novels, 'top_novel': top_novel, 'middle_novels': middle_novels}
+    except:
+        print('要素数が8未満です or 5未満です')
     return render(request, "home/home.html", context)
 
 class SignupView(CreateView):
@@ -111,16 +123,23 @@ class LoginView(BaseLoginView):
     template_name = "login.html"
 
 class LogoutView(BaseLogoutView):
-    success_url = reverse_lazy("accounts:index")
+    success_url = reverse_lazy("dejavu_app:index")
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
+@method_decorator(login_required, name='dispatch')
 # create_novel画面
-def create_novel(request):
-    create_novel_info = ["title", "imag"]
-    context = {"create_novel_info" : create_novel_info}
-    return render(request, "create_novel.html", context)
+
+class CreateNovelView(generic.CreateView):
+    model = Novels
+    form_class = NovelCreateForm
+    success_url = reverse_lazy("dejavu_app:home")
+    template_name = "create_novel.html"
+    # userを入れる
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 # write_continue画面（仮置き）
 def write_continue(request):
