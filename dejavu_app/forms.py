@@ -24,11 +24,4 @@ class LoginFrom(AuthenticationForm):
 class NovelCreateForm(forms.ModelForm):
     class Meta:
         model = Novels
-        fields = ('title', 'synopsis', 'introduction', 'user_id')
-        # fields = {'title', 'synopsis', 'introduction', 'user_id'}
-        # widgets = {
-        #     'title': forms.TextInput(),
-        #     'synopsis': forms.TextInput(),
-        #     'introduction': forms.TextInput(),
-        #     'user_id': request.user.user_id
-        # }
+        fields = ('title', 'synopsis', 'introduction',)
