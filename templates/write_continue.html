@@ -10,7 +10,7 @@
     <nav class="p-5 bg-green-900 shadow">
         <h1 class="text-white">ロゴ</h1>
     </nav>
-    <div class="ml-10 mt-5 text-4xl" >[タイトル]　の続きを書く</div>
+    <div class="ml-10 mt-5 text-4xl" >「{{ novel.title }}」の続きを書く</div>
     <div class="flex justify-around">
         <div>
             <div class="mt-10 w-96 h-96 bg-gray-100 flex items-center justify-center">
@@ -20,19 +20,29 @@
 
         <div>
             <div class="mt-10 text-4xl">あらすじ</div>
+            <div class="w-96 h-96 bg-gray-100">{{ novel.introduction }}</div>
         </div>
     </div>
-    <fotm>
+    <form action="{% url 'dejavu_app:write_continue' novel_id  %}" method="POST">
         <div class="flex flex-col content-center text-center">
             <!-- （承）にはユーザーが書きたい承転結のどれかが入る -->
-            <div class=" text-4xl mt-20">[タイトル](承)</div>
+            <div class=" text-4xl mt-20">{{ novel.title }} ({{novel_status}})</div>
             <div class="mt-10">
-                <textarea class="w-96 h-96 bg-gray-100" placeholder="ここに小説を書きましょう！"></textarea>
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                {{ field.label }}
+                {{ field }}
+                {{ field.errors }}
+                <br>
+                {% endfor %}
+                <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->
             </div>
-
-            <div>
-                <button type="submit" class="text-white bg-stone-500 hover:bg-stone-400 rounded-3xl p-3 w-60 mt-10">投稿</button>
+            <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
+                <button type="submit" class="text-white">
+                    投稿
+                </button>
+                {% csrf_token %}
             </div>
         </div>
-    </fotm>
+    </form>
 </body>
