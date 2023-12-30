@@ -88,14 +88,14 @@ class WriteContinueView(CreateView):
         context['novel_id'] = self.kwargs["novel_id"]
         context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
         return context
-    
+
     def get_initial(self):
         initial = super().get_initial()
         initial['novel_id'] = self.kwargs["novel_id"]
         initial['user_id'] = self.request.user.id
         print(initial)
         return initial
-    
+
 
 # myProfile画面
 def myProfile(request):
