@@ -10,6 +10,6 @@ urlpatterns = [
     path('login/', views.LoginView.as_view(), name="login"),
     path('logout/', views.LogoutView.as_view(), name="logout"),
     path('create/', views.CreateNovelView.as_view(), name="create_novel"),
-    path('write_continue/', views.write_continue, name="write_continue"),
+    path('write_continue/<int:novel_id>/', views.WriteContinueView.as_view(), name="write_continue"),
     path('myProfile/', views.myProfile, name="myProfile"),
 ]
