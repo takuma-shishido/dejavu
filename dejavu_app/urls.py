@@ -11,5 +11,6 @@ urlpatterns = [
     path('logout/', views.LogoutView.as_view(), name="logout"),
     path('create/', views.create_novel, name="create_novel"),
     path('write_continue/', views.write_continue, name="write_continue"),
-
+    path('novel_detail/<int:pk>/',views.Comments_view.as_view(), name="novel_detail"),
+    path('comments/<int:pk>/',views.Create_comments.as_view(), name="comments")
 ]

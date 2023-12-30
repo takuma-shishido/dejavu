@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DetailView
 from django.contrib.auth.views import LoginView as BaseLoginView,  LogoutView as BaseLogoutView
 from django.urls import reverse_lazy
 from .forms import SignUpForm, LoginFrom
 from django.contrib.auth.decorators import login_required
+from .models.comments import Comments, Test_blog
+from .forms import CommentCreateForm
+from django import forms
 
-
+from django.views.generic.edit import CreateView
 
 
 # Create your views here.
@@ -129,3 +132,30 @@ def write_continue(request):
     context = {"sample_book_info" : sample_book_info}
     return render(request, "write_continue.html", context)
 
+
+class Comments_view(DetailView):
+    template_name = 'comments/novel_detail.html'
+    model = Test_blog
+    # form_class = CommentCreateForm
+    # sample_comment = "サンプルコメントです"
+    # context = {"sample_comment" : sample_comment}
+    # return render(request, "comments/novel_detail.html", context)
+
+class Create_comments(CreateView):
+    template_name = "comments/comments.html"
+    model = Comments
+    form_class = CommentCreateForm
+
+    def form_valid(self, form):
+        post_pk = self.kwargs['pk']
+        print(post_pk)
+        post = get_object_or_404(Test_blog, pk=post_pk)
+        comment = form.save(commit=False)
+        comment.novel_id = post
+        comment.save()
+        return redirect('dejavu_app:novel_detail', pk=post_pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = get_object_or_404(Test_blog, pk=self.kwargs['pk'])
+        return context
