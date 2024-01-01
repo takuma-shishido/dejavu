@@ -40,6 +40,8 @@
             class="bg-neutral-400 rounded-ee-3xl rounded-se-3xl w-72 h-44 content-center items-center flex justify-center"><img
                 class="w-11" src="../static/img/plus.png" alt="plus button">
         </button>
+
+    
         <div class="flex overflow-x-auto mt-28 break-words line-clamp-3 h-80">
             {% for item in dummy_top_data %}
             <!-- 書籍の表紙の画像 -->
@@ -50,10 +52,12 @@
                 <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->
                 <div class="w-72 h-20 text-left  font-sans px-10 text-ellipsis">{{ item.description }}</div>
                 <!-- Read button  -->
-                <button class="w-36 h-36 bg-neutral-700 p-4 mt-10 ml-10 rounded-2xl text-gray-50">Read</button>
+                    class="w-36 h-36 bg-neutral-700 p-4 mt-10 ml-10 rounded-2xl text-gray-50" >Read</button>
             </div>
             {% endfor %}
         </div>
+        
+
     </div>
         <!-- books -->
         <div class="grid grid-cols-4 gap-20 text-center m-14 flex-wrap inset-0 items-center justify-center">

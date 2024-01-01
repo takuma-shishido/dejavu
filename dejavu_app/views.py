@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.views.generic import TemplateView, CreateView, DetailView
 from django.contrib.auth.views import LoginView as BaseLoginView,  LogoutView as BaseLogoutView
-from django.urls import reverse_lazy
-from .forms import SignUpForm, LoginFrom
+from django.urls import reverse, reverse_lazy
+from .forms import SignUpForm, LoginFrom, CommentCreateForm, Novel_detail_from
 from django.contrib.auth.decorators import login_required
-from .models.comments import Comments, Test_blog
-from .forms import CommentCreateForm
+from .models.comments import Comments
+from .models.novel_detail import NovelDetail
 from django import forms
 
 from django.views.generic.edit import CreateView
@@ -90,6 +90,9 @@ def home(request):
         },
     ]
 
+
+            
+
     context = {"dummy_top_data": dummy_top_data, "dummy_book_data": dummy_book_data}
 
     return render(request, "home/home.html", context)
@@ -133,10 +136,27 @@ def write_continue(request):
     return render(request, "write_continue.html", context)
 
 
-class Comments_view(DetailView):
+class Detail_view(CreateView):
     template_name = 'comments/novel_detail.html'
-    model = Test_blog
-    # form_class = CommentCreateForm
+    model = NovelDetail
+    form_class = Novel_detail_from
+    
+    def get_success_url(self):
+        return reverse('comments', kwargs={'pk': self.object.id})
+    
+    def get_context_data(self, *args, **kwargs):
+     context = super().get_context_data(*args, **kwargs)
+     print(context)
+     return context
+    #Test_blog.objects.create(content="コンテンツ")
+    # def get_object(self, queryset=None):
+    #     return get_object_or_404(Test_blog, pk=self.kwargs['pk'])
+    
+    # sample = Comments(user_id="11",comment="コメント")
+    # sample.save()
+    # print("a")
+    # print(sample)
+
     # sample_comment = "サンプルコメントです"
     # context = {"sample_comment" : sample_comment}
     # return render(request, "comments/novel_detail.html", context)
@@ -149,7 +169,7 @@ class Create_comments(CreateView):
     def form_valid(self, form):
         post_pk = self.kwargs['pk']
         print(post_pk)
-        post = get_object_or_404(Test_blog, pk=post_pk)
+        post = get_object_or_404(NovelDetail, pk=post_pk)
         comment = form.save(commit=False)
         comment.novel_id = post
         comment.save()
@@ -157,5 +177,5 @@ class Create_comments(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post'] = get_object_or_404(Test_blog, pk=self.kwargs['pk'])
+        context['post'] = get_object_or_404(NovelDetail, pk=self.kwargs['pk'])
         return context

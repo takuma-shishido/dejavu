@@ -4,7 +4,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from accounts.models import User
 
 from django import forms
-from .models import Comments
+from .models.comments import Comments
+from .models.novel_detail import NovelDetail
+
 
 
 
@@ -24,6 +26,10 @@ class LoginFrom(AuthenticationForm):
     class Meta:
         model = User  # ここ
 
+class Novel_detail_from(forms.ModelForm):
+    class Meta:
+        model = NovelDetail
+        exclude = ('novel_master_id', 'user_id', 'novel_id', 'content')
 
 class CommentCreateForm(forms.ModelForm):
     """コメントフォーム"""
