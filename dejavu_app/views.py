@@ -144,10 +144,11 @@ class Detail_view(CreateView):
     def get_success_url(self):
         return reverse('comments', kwargs={'pk': self.object.id})
     
-    def get_context_data(self, *args, **kwargs):
-     context = super().get_context_data(*args, **kwargs)
-     print(context)
-     return context
+    def get_context_data(self,  **kwargs):
+        context = super().get_context_data( **kwargs)
+        context['comments'] = Comments.objects.all()
+        print(context)
+        return context
     #Test_blog.objects.create(content="コンテンツ")
     # def get_object(self, queryset=None):
     #     return get_object_or_404(Test_blog, pk=self.kwargs['pk'])
