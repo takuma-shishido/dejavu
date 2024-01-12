@@ -51,7 +51,7 @@ class LoginView(BaseLoginView):
     template_name = "login.html"
 
 class LogoutView(BaseLogoutView):
-    success_url = reverse_lazy("dejavu_app:index")
+    success_url = reverse_lazy("dejavu_app:home")
 
 class IndexView(TemplateView):
     template_name = "index.html"
