@@ -122,7 +122,6 @@ class LogoutView(BaseLogoutView):
 class IndexView(TemplateView):
     template_name = "index.html"
 
-@method_decorator(login_required, name='dispatch')
 # create_novel画面
 def create_novel(request):
     create_novel_info = ["title", "imag"]
