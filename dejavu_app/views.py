@@ -117,11 +117,12 @@ class LoginView(BaseLoginView):
     template_name = "login.html"
 
 class LogoutView(BaseLogoutView):
-    success_url = reverse_lazy("accounts:index")
+    success_url = reverse_lazy("dejavu_app:index")
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
+@method_decorator(login_required, name='dispatch')
 # create_novel画面
 def create_novel(request):
     create_novel_info = ["title", "imag"]

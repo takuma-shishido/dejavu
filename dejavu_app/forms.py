@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
+from django import forms
+from .models import Novels, NovelDetail
 # User をUsersに変更
 from accounts.models import User
 
@@ -12,7 +13,7 @@ from .models.novel_detail import NovelDetail
 
 class SignUpForm(UserCreationForm):
     class Meta:
-        model = User  # ここ
+        model = User
         fields = (
             "account_id",
             "email",

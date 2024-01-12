@@ -123,8 +123,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LOGIN_REDIRECT_URL = "accounts:index"
-LOGOUT_REDIRECT_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "dejavu_app:home"
+LOGOUT_REDIRECT_URL = "dejavu_app:index"
 
 LANGUAGE_CODE = "en-us"
 
