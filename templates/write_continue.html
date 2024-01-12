@@ -30,19 +30,54 @@
             <div class="mt-10">
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                {{ field.label }}
-                {{ field }}
-                {{ field.errors }}
+                {% if field.label == "novel_id" %}
+                    <h1>afasdfsadfasdf</h1>
+                {% else %}
+
+                    {{ field.label }}
+                    {{ field }}
+                    {{ field.errors }}
+                {% endif %}
                 <br>
                 {% endfor %}
                 <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->
             </div>
-            <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
+            <div class="flex items-center justify-center bg-slate-950 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
                 <button type="submit" class="text-white">
                     投稿
                 </button>
                 {% csrf_token %}
             </div>
+
+            {% if old_novel|length >= 1 %}
+                {% for novel in old_novel %}
+                    {% if forloop.counter == 1 %}
+                        <div class="mt-20 mx-20 w-auto h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                            <h1 class="text-3xl">Development</h1>
+                            <h1 class="text-3xl  pt-5">{{ novel }}</h1>
+                        </div>
+                    {% elif forloop.counter == 2 %}
+                    <div class="mt-20 w-auto h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                        <h1 class="text-3xl">Turn</h1>
+                        <h1 class="text-3xl  pt-5">{{ novel }}</h1>
+                    </div>
+                        <!-- <h1>転 {{ novel }}</h1> -->
+                    {% elif forloop.counter == 3 %}
+                        <div class="mt-20 w-auto h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                            <h1 class="text-3xl">Conclusion</h1>
+                            <h1 class="text-3xl  pt-5">{{ novel }}</h1>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+            <!-- <div class="mt-20 w-1/2 h-36 mx-auto rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                <h1 class="text-3xl">承</h1>
+                <h1 class="text-3xl  pt-5">{{ old_novel }}</h1>
+            </div> -->
+            {% endif %}
+
+
+            
         </div>
     </form>
 </body>
