@@ -38,9 +38,10 @@ class SignupView(CreateView):
     def form_valid(self, form):
         # ユーザー作成後にそのままログイン状態にする設定
         response = super().form_valid(form)
-        account_id = form.cleaned_data.get("account_id")
+        email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password1")
-        user = authenticate(account_id=account_id, password=password)
+
+        user = authenticate(email=email, password=password)
         login(self.request, user)
         return response
 
@@ -50,7 +51,7 @@ class LoginView(BaseLoginView):
     template_name = "login.html"
 
 class LogoutView(BaseLogoutView):
-    success_url = reverse_lazy("dejavu_app:index")
+    success_url = reverse_lazy("dejavu_app:home")
 
 class IndexView(TemplateView):
     template_name = "index.html"

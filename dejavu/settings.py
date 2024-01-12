@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LOGIN_REDIRECT_URL = "dejavu_app:home"
-LOGOUT_REDIRECT_URL = "dejavu_app:index"
+LOGOUT_REDIRECT_URL = "dejavu_app:home"
 
 LANGUAGE_CODE = "en-us"
 
