@@ -62,7 +62,10 @@
                 <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->
                 <div class="w-72 h-20 text-left  font-sans px-10 text-ellipsis">{{ novel.synopsis }}</div>
                 <!-- Read button  -->
-                <button class="w-36 h-36 bg-neutral-700 p-4 mt-10 ml-10 rounded-2xl text-gray-50">Read</button>
+                <a href="{% url 'dejavu_app:write_continue' novel.id %}" class="w-36 h-36 bg-neutral-700 p-4 mt-20 ml-10 rounded-2xl text-gray-50">
+
+                    <button class="">Read</button>
+                </a>
             </div>
             {% endfor %}
         </div>
@@ -74,14 +77,13 @@
             <!-- thumbnail of book -->
             <div class="h-64 rounded-e-3xl w-56 object-cover bg-neutral-500"></div>
             <!-- <img src="{{ novel.image_url }}" alt="dummy_image" class="h-64 rounded-e-3xl w-56 object-cover"> -->
-            <button class="w-32 h-14 bg-neutral-700 -m-8 rounded-2xl text-gray-50">Read</button>
+            <a href="{% url 'dejavu_app:write_continue' novel.id %}">
+                <button class="w-32 h-14 bg-neutral-700 -m-8 rounded-2xl text-gray-50">Read</button>
+            </a>
         </div>
         {% endfor %}
     </div>
     </div>
-    <!-- {% for novel in novels %}
-        <div>{{ novel.title }}</div>
-    {% endfor %} -->
 </body>
 
 </html>
