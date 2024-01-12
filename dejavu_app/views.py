@@ -12,8 +12,9 @@ from django.urls import reverse_lazy
 from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-from .models import Novels, NovelDetail
+from .models import Novels, NovelDetail, User
 from django.utils.decorators import method_decorator
+from django.templatetags.static import static
 
 
 # Create your views here.
@@ -98,17 +99,24 @@ class WriteContinueView(CreateView):
         context = super().get_context_data(**kwargs)
         context["novel"] = novel
         context["novel_id"] = self.kwargs["novel_id"]
+        context['logo_sub'] = static("img/logo-sub.PNG")
+
+        try:
+            user = User.objects.get(account_id=novel.user_id)
+            context["owner_name"] = user.first_name
+            context["old_novel"] = NovelDetail.objects.filter(novel_id=self.kwargs["novel_id"])
+            print(context["old_novel"])
+            # self.kwargs = super(WriteContinueView,self).get_form_kwargs()
+            # self.kwargs['novel_id'] = self.kwargs['novel_id'] # novel_idはパラメータ
+        except:
+            print("anonymous user")
+        # context["old_novel"] = NovelDetail.objects.filter(novel_id=self.kwargs["novel_id"])
+        # print(context["old_novel"])
+
         try:
             context["novel_status"] = Novels.STATUS_CHOICES[novel.status][1]
         except:
-            print("finish writing")
-
-        try :
-            context["old_novel"] = NovelDetail.objects.filter(novel_id=self.kwargs["novel_id"])
-            print("novel details")
-            print(context["old_novel"])
-        except:
-            print("no data yet")
+            print("finished writing")
 
         return context
 
@@ -119,6 +127,17 @@ class WriteContinueView(CreateView):
         print("initial")
         print(initial)
         return initial
+
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user.id
+    #     # self.kwargs = super(WriteContinueView,self).get_form_kwargs()
+    #     # self.kwargs['novel_id'] = self.kwargs['novel_id'] # novel_idはパラメータ
+    #     # form.instance.novel_id = self.kwargs["novel_id"]
+        return super().form_valid(form)
+
+    # def get_form_kwargs(self):
+    #     return kwargs
+
 
 
 # myProfile画面

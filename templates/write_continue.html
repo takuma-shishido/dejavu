@@ -4,80 +4,87 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+
     <title>Dejavu</title>
 </head>
-<body>
-    <nav class="p-5 bg-green-900 shadow">
+<body  bgcolor="#EFEFEF">
+    <!-- <nav class="p-5 bg-slate-200 shadow">
         <h1 class="text-white">ロゴ</h1>
-    </nav>
-    <div class="ml-10 mt-5 text-4xl" >「{{ novel.title }}」の続きを書く</div>
-    <div class="flex justify-around">
-        <div>
-            <div class="mt-10 w-96 h-96 bg-gray-100 flex items-center justify-center">
-                <p>アップロードされた画像</p>
+    </nav> -->
+    <a class="w-32" href="{% url 'dejavu_app:home' %}">
+
+        <img class="text-2xl w-20 fixed" src="{{ logo_sub }}"></img>
+    </a>
+    <div class="flex flex-row pt-20 items-end">
+        <div class="ml-10 text-4xl">{{ novel.title }}</div>
+        <div class="ml-36 text-3xl">{{ owner_name }}</div>
+    </div>
+    <!-- <div class="ml-10 mt-5 text-4xl" >「{{ novel.title }}」の続きを書く</div> -->
+
+    <div class="flex flex-row justify-center mt-10">
+        <div class="flex flex-col w-8/12">
+            <div class="ml-10">
+                <div class="mt-10 text-4xl text-zinc-500">Synopsis</div>
+                <div class="w-96 mt-10 text-2xl">{{ novel.synopsis }}</div>
+                <!-- <div class="w-96 h-96 bg-gray-100">{{ novel.synopsis }}</div> -->
             </div>
         </div>
 
-        <div>
-            <div class="mt-10 text-4xl">あらすじ</div>
-            <div class="w-96 h-96 bg-gray-100">{{ novel.introduction }}</div>
-        </div>
+            <div class="book-face mr-20 mt-10 w-96 h-96 rounded-ss-3xl rounded-es-3xl bg-neutral-500 flex items-center justify-center">
+                <p>アップロードされた画像</p>
+            </div>
+
     </div>
+    {% if request.user.is_authenticated == True %}
     <form action="{% url 'dejavu_app:write_continue' novel_id  %}" method="POST">
-        <div class="flex flex-col content-center text-center">
+        <div class="flex flex-col justify-center items-center">
             <!-- （承）にはユーザーが書きたい承転結のどれかが入る -->
-            <div class=" text-4xl mt-20">{{ novel.title }} ({{novel_status}})</div>
+            <div class="text-4xl mt-20">{{ novel.title }} ({{novel_status}})</div>
             <div class="mt-10">
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                {% if field.label == "novel_id" %}
-                    <h1>afasdfsadfasdf</h1>
-                {% else %}
-
-                    {{ field.label }}
-                    {{ field }}
-                    {{ field.errors }}
-                {% endif %}
-                <br>
+                    
+                        {{ field.label }}
+                        {{ field }}
+                        {{ field.errors }}
                 {% endfor %}
                 <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->
             </div>
-            <div class="flex items-center justify-center bg-slate-950 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
+            <div class="flex items-center justify-center bg-slate-950 mt-12 text-2xl p-5 w-32 rounded-3xl">
                 <button type="submit" class="text-white">
                     投稿
                 </button>
                 {% csrf_token %}
             </div>
+            {% endif %}
 
-            {% if old_novel|length >= 1 %}
+            <div class="mt-20 mb-10 mx-20 w-11/12 h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                <h1 class="text-3xl">Introduction</h1>
+                <h1 class="text-3xl  pt-5">{{ novel.introduction }}</h1>
+            </div>
+
+            {% if old_novel %}
                 {% for novel in old_novel %}
                     {% if forloop.counter == 1 %}
-                        <div class="mt-20 mx-20 w-auto h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                        <div class="mt-20 mb-10 mx-20 w-11/12 h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
                             <h1 class="text-3xl">Development</h1>
                             <h1 class="text-3xl  pt-5">{{ novel }}</h1>
                         </div>
                     {% elif forloop.counter == 2 %}
-                    <div class="mt-20 w-auto h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                    <div class="mt-20 mb-10 w-11/12 h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
                         <h1 class="text-3xl">Turn</h1>
                         <h1 class="text-3xl  pt-5">{{ novel }}</h1>
                     </div>
                         <!-- <h1>転 {{ novel }}</h1> -->
                     {% elif forloop.counter == 3 %}
-                        <div class="mt-20 w-auto h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                        <div class="mt-20 mb-10 w-11/12 h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
                             <h1 class="text-3xl">Conclusion</h1>
                             <h1 class="text-3xl  pt-5">{{ novel }}</h1>
                         </div>
                     {% endif %}
                 {% endfor %}
             {% else %}
-            <!-- <div class="mt-20 w-1/2 h-36 mx-auto rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
-                <h1 class="text-3xl">承</h1>
-                <h1 class="text-3xl  pt-5">{{ old_novel }}</h1>
-            </div> -->
             {% endif %}
-
-
-            
         </div>
     </form>
 </body>

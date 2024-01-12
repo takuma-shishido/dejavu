@@ -8,7 +8,7 @@
 </head>
 
 <body bgcolor="#EFEFEF">
-    {% if request.user.is_authenticated == True%}
+    {% if request.user.is_authenticated == True %}
     <div class="flex flex-row text-right pt-5">
         <div class="text-2xl px-5">{{ request.user.first_name }}</div>
         <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center text-right" href="{% url 'accounts:logout' %}">
@@ -60,7 +60,7 @@
                 <div class="w-56 text-left text-2xl font-sans pl-10 pt-5 pb-16 break-words line-clamp-3 truncate">
                     {{novel.title }}</div>
                 <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->
-                <div class="w-72 h-20 text-left  font-sans px-10 text-ellipsis">{{ novel.synopsis }}</div>
+                <div class="w-72 h-20 text-left font-sans px-10 text-ellipsis">{{ novel.synopsis }}</div>
                 <!-- Read button  -->
                 <a href="{% url 'dejavu_app:write_continue' novel.id %}" class="w-36 h-36 bg-neutral-700 p-4 mt-20 ml-10 rounded-2xl text-gray-50">
 

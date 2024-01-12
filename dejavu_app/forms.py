@@ -29,7 +29,12 @@ class NovelCreateForm(forms.ModelForm):
 class NovelDetailCreateForm(forms.ModelForm):
     class Meta:
         model = NovelDetail
-        fields = "__all__"
+        fields = '__all__'
+
+    # def __init__(self, *args, **kwargs):
+    #     self.novel_id  = kwargs.pop('novel_id')
+    #     super(NovelDetailCreateForm,self).__init__(*args,**kwargs)
+
     def save(self, commit=True):
         article = super().save(commit)
         print(self.cleaned_data)
