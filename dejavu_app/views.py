@@ -135,25 +135,31 @@ class Detail_view(CreateView):
     def get_success_url(self):
         return reverse('comments', kwargs={'pk': self.object.id})
     
-    def get_context_data(self,  **kwargs):
-        context = super().get_context_data( **kwargs)
+    def setup(self, request, *args, **kwargs):
+        if hasattr(self, "get") and not hasattr(self, "head"):
+            self.head = self.get
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+
+    def get_context_data(self, **kwargs):
+        novel = Novels.objects.get(pk=self.kwargs["novel_id"])
+        context = super().get_context_data(**kwargs)
+        context['novel'] = novel
+        context['novel_id'] = self.kwargs["novel_id"]
+        context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
         context['comments'] = Comments.objects.all()
-        print(context)
-        print("aa")
         return context
-    #Test_blog.objects.create(content="コンテンツ")
-    # def get_object(self, queryset=None):
-    #     return get_object_or_404(Test_blog, pk=self.kwargs['pk'])
     
-    # sample = Comments(user_id="11",comment="コメント")
-    # sample.save()
-    # print("a")
-    # print(sample)
+    # def get_context_data(self,  **kwargs):
+    #     context = super().get_context_data( **kwargs)
+    #     context['post'] = get_object_or_404(NovelDetail, pk=self.kwargs['novel_id'])
+    #     context['comments'] = Comments.objects.all()
+    #     print(context)
+    #     print("aa")
+    #     return context
 
-    # sample_comment = "サンプルコメントです"
-    # context = {"sample_comment" : sample_comment}
-    # return render(request, "comments/novel_detail.html", context)
-
+ 
 class Create_comments(CreateView):
     template_name = "comments/comments.html"
     model = Comments
