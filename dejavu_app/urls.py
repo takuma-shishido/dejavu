@@ -11,4 +11,7 @@ urlpatterns = [
     path('create/', views.CreateNovelView.as_view(), name="create_novel"),
     path('write_continue/<int:novel_id>/', views.WriteContinueView.as_view(), name="write_continue"),
     path('myProfile/', views.myProfile, name="myProfile"),
+    path('novel_detail/<int:novel_id>/', views.Detail_view.as_view(), name="novel_detail"),
+    path('create_comments/<int:novel_id>/', views.Create_comments.as_view(), name="create_comments")
+
 ]

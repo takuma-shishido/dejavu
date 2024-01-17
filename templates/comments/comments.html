@@ -1,0 +1,25 @@
+<div class="">
+
+    <!---記事タイトルを表示-->
+    <h2 class=""><span>{{ post.title }}</span></h2>
+    <form action="{% url 'dejavu_app:novel_detail' novel_id  %}" method="POST" id="comment-form">
+
+　　　　 <!--特定のフィールドに紐づかないエラーを表示する-->
+        {{ form.non_field_errors }}
+
+        <!--フォームの各フィールドを取り出す-->
+        {% for field in form %}
+        <div class="field">
+            {{ field.label_tag }}
+
+            {{ field }}
+            {{ field.error }}
+        </div>
+        {% endfor %}
+        {% csrf_token %}
+        <div class="row my-3">
+            <button type="submit" class="btn btn-success col-3 offset-2">投稿する</button>
+            <a class="btn btn-danger col-3 offset-2" href="{% url 'dejavu_app:novel_detail' post.novel_id %}">キャンセル</a>
+        </div>
+    </form>
+</div>

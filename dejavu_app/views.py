@@ -1,16 +1,19 @@
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse, HttpResponseNotFound
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.views import LoginView as BaseLoginView,  LogoutView as BaseLogoutView
-from django.urls import reverse_lazy
-from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm
+from django.urls import reverse_lazy, reverse
+from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm, CommentCreateForm, Novel_detail_from
+
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from .models import Novels, NovelDetail
 from django.utils.decorators import method_decorator
+from .models.comments import Comments
+from .models.novel_detail import NovelDetail
 
 
 
@@ -124,3 +127,48 @@ def myProfile(request):
     context = {"dummy_top_data": dummy_top_data}
     return render(request, "myProfile.html", context)
 
+class Detail_view(CreateView):
+    template_name = 'comments/novel_detail.html'
+    model = NovelDetail
+    form_class = Novel_detail_from
+    
+    def get_success_url(self):
+        return reverse('comments', kwargs={'pk': self.object.id})
+    
+    def get_context_data(self,  **kwargs):
+        context = super().get_context_data( **kwargs)
+        context['comments'] = Comments.objects.all()
+        print(context)
+        return context
+    #Test_blog.objects.create(content="コンテンツ")
+    # def get_object(self, queryset=None):
+    #     return get_object_or_404(Test_blog, pk=self.kwargs['pk'])
+    
+    # sample = Comments(user_id="11",comment="コメント")
+    # sample.save()
+    # print("a")
+    # print(sample)
+
+    # sample_comment = "サンプルコメントです"
+    # context = {"sample_comment" : sample_comment}
+    # return render(request, "comments/novel_detail.html", context)
+
+class Create_comments(CreateView):
+    template_name = "comments/comments.html"
+    model = Comments
+    form_class = CommentCreateForm
+    success_url = reverse_lazy("novel_detail")
+
+    def form_valid(self, form):
+        post_pk = self.kwargs['pk']
+        print(post_pk)
+        post = get_object_or_404(NovelDetail, pk=post_pk)
+        comment = form.save(commit=False)
+        comment.novel_id = post
+        comment.save()
+        return redirect('dejavu_app:novel_detail', pk=post_pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = get_object_or_404(NovelDetail, pk=self.kwargs['novel_id'])
+        return context

@@ -1,0 +1,23 @@
+[
+    {
+    "model" :"dejavu_app.NovelDetail",
+    "pk" :2,
+    "fields" :{
+        "user_id" :2,
+        "novel_id" :2,
+        "content" : "2222"
+    }
+    },
+
+    {
+    "model" :"dejavu_app.Comments",
+    "pk" :1,
+    "fields" :{
+    "user_id" :1,
+    "novel_id" :1,
+    "created_at" :"2024-01-15 00:00:01",
+    "comment" : "コメントです1"
+    }
+    }
+
+]
