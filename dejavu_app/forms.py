@@ -22,13 +22,12 @@ class LoginFrom(AuthenticationForm):
         model = User
 
 class NovelCreateForm(forms.ModelForm):
+    title = forms.CharField(required=True)
+    synopsis = forms.CharField(widget=forms.Textarea, required=True)
+    introduction = forms.CharField(widget=forms.Textarea, required=True)
     class Meta:
         model = Novels
         fields = ('title', 'synopsis', 'introduction')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['title'].widget.attrs.update({'class': 'form-control'})
 
 class NovelDetailCreateForm(forms.ModelForm):
     class Meta:
