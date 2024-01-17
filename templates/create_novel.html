@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -21,32 +22,22 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-48 w-6/10">
+            <div class="mt-24 w-6/10">
                 <form action="">
                     <div class="mt-5">
-                        <label class="text-4xl" for="">
-                            タイトル：
-                            <td class="bg-gray-100"> {{ form.title }}</td>
-                        </label>
-                    </div>            <div class="mt-5">
-                        <label class="text-4xl" for="">
-                            あらすじ：
-                            <td type="text" class="bg-gray-100"> {{ form.synopsis}} </td>
-                        </label>
+                        <label class="text-4xl block" for="title">タイトル：</label>
+                        {{ form.title|add_class:"bg-gray-100 p-2 w-9/12 rounded" }}
                     </div>
                     <div class="mt-5">
-                        <label class="text-4xl" for="">
-                            起承転結の起：
-                            <div class="w-full mb-4">
-                                <!-- <textarea rows="4" class="w-full bg-gray-100" required></textarea> -->
-                                <td type="text" class="bg-gray-100"> {{ form.introduction }} </td>
-                            </div>
-                        </label>
+                        <label class="text-4xl block" for="synopsis">あらすじ：</label>
+                        {{ form.synopsis|add_class:"bg-gray-100 border rounded-md p-2 w-full h-32" }}
                     </div>
-                    <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
-                        <button type="submit" class="text-white">
-                            投稿
-                        </button>
+                    <div class="mt-5">
+                        <label class="text-4xl block" for="introduction">起承転結の起：</label>
+                        {{ form.introduction|add_class:"bg-gray-100 border rounded-md p-2 w-full h-32" }}
+                    </div>
+                    <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl mx-auto">
+                        <button type="submit" class="text-white">投稿</button>
                         {% csrf_token %}
                     </div>
                 </form>

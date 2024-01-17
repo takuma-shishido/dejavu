@@ -21,6 +21,9 @@ class LoginFrom(AuthenticationForm):
         model = User
 
 class NovelCreateForm(forms.ModelForm):
+    title = forms.CharField(required=True)
+    synopsis = forms.CharField(widget=forms.Textarea, required=True)
+    introduction = forms.CharField(widget=forms.Textarea, required=True)
     class Meta:
         model = Novels
         fields = ('title', 'synopsis', 'introduction')
