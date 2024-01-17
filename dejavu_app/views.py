@@ -139,6 +139,7 @@ class Detail_view(CreateView):
         context = super().get_context_data( **kwargs)
         context['comments'] = Comments.objects.all()
         print(context)
+        print("aa")
         return context
     #Test_blog.objects.create(content="コンテンツ")
     # def get_object(self, queryset=None):
