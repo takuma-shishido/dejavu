@@ -164,7 +164,7 @@ class Create_comments(CreateView):
     template_name = "comments/comments.html"
     model = Comments
     form_class = CommentCreateForm
-    success_url = reverse_lazy("novel_detail")
+    success_url = reverse_lazy("write_continue")
 
     def form_valid(self, form):
         post_pk = self.kwargs['pk']
@@ -173,7 +173,7 @@ class Create_comments(CreateView):
         comment = form.save(commit=False)
         comment.novel_id = post
         comment.save()
-        return redirect('dejavu_app:novel_detail', pk=post_pk)
+        return redirect('dejavu_app:write_continue', pk=post_pk)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
