@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 'dejavu_app',
     "accounts",
-    # formの装飾に使う
-    # "widget_tweaks",
+    "widget_tweaks",
 ]
 
 AUTH_USER_MODEL = "accounts.User"

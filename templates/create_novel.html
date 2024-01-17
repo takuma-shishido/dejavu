@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -10,7 +11,7 @@
     <nav class="p-5 bg-green-900 shadow">
         <h1 class="text-white">ロゴ</h1>
     </nav>
-    <form action="" method="POST">
+    <!-- <form action="" method="POST"> -->
         <div class="flex justify-around h-screen">
             <div class="mt-5 w-4/10 text-center">
                 <h1 class="text-5xl mt-5">小説作成画面</h1>
@@ -24,17 +25,17 @@
             <div class="mt-24 w-6/10">
                 <form action="">
                     <div class="mt-5">
-                        <label class="text-4xl block" for="title">タイトル：
-                            <input class="bg-gray-100 p-2 w-9/12 rounded" type="text" id="title" name="title" required>
-                        </label>
+                        <label class="text-4xl block" for="title">タイトル：</label>
+                        <!-- {{ form.title|add_class:"bg-gray-100 p-2 w-9/12 rounded" }} -->
+                        {% render_field form.title class+="form-control"%}
                     </div>
                     <div class="mt-5">
                         <label class="text-4xl block" for="synopsis">あらすじ：</label>
-                        <textarea id="synopsis" name="synopsis" rows="4" cols="50" class="bg-gray-100 border rounded-md p-2 w-full" required></textarea>
+                        <!-- {{ form.synopsis|add_class:"bg-gray-100 border rounded-md p-2 w-full" }} -->
                     </div>
                     <div class="mt-5">
                         <label class="text-4xl block" for="introduction">起承転結の起：</label>
-                        <textarea id="introduction" name="introduction" rows="8" cols="50" class="bg-gray-100 border rounded-md p-2 w-full" required></textarea>
+                        <!-- {{ form.introduction|add_class:"bg-gray-100 border rounded-md p-2 w-full" }} -->
                     </div>
                     <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl mx-auto">
                         <button type="submit" class="text-white">投稿</button>
@@ -43,6 +44,6 @@
                 </form>
             </div>
         </div>
-    </form>
+    <!-- </form> -->
 </body>
 </html>

@@ -26,6 +26,10 @@ class NovelCreateForm(forms.ModelForm):
         model = Novels
         fields = ('title', 'synopsis', 'introduction')
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs.update({'class': 'form-control'})
+
 class NovelDetailCreateForm(forms.ModelForm):
     class Meta:
         model = NovelDetail
