@@ -89,6 +89,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []  # スーパーユーザー作成時にemailも設定する
 
     def __str__(self):
-        return self.account_id
+        return self.account_id.__str__()
 
 
