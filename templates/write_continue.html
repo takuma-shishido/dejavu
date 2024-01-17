@@ -24,7 +24,7 @@
         </div>
     </div>
     <form action="{% url 'dejavu_app:write_continue' novel_id  %}" method="POST">
-        <div class="flex flex-col content-center text-center">
+        <div class="flex flex-col content-center text-center items-center">
             <!-- （承）にはユーザーが書きたい承転結のどれかが入る -->
             <div class=" text-4xl mt-20">{{ novel.title }} ({{novel_status}})</div>
             <div class="mt-10">
@@ -37,7 +37,7 @@
                 {% endfor %}
                 <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->
             </div>
-            <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl ms-48">
+            <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl ms-30">
                 <button type="submit" class="text-white">
                     投稿
                 </button>
@@ -45,21 +45,28 @@
             </div>
         </div>
     </form>
-
-    <h3 class="comment-title">コメント</h3>
-
-    <!--コメント-->
-    {% for comment in object.comment_set.all %}
-    <div class="comment-list">
-        <div class='border-bottom'>{{ comments.user_id }}　{{ comments.created_at }}</div>
-        <!--改行しないようlinebreaksを設定,URL要素に<a>要素を設定-->
-        <div class='mt-2'>{{ comments.message | linebreaks | urlize }}</div>
+    <div class="flex flex-col items-center justify-center text-center mt-10">
+        <h3 class="text-4xl m-5">コメント</h3>
+        {% for comment in comments %}
+        <div class="bg-yellow-800 bg-opacity-70 p-3 mt-6">
+            <!-- <div class='border-bottom'>{{ comment.user_id }} {{comment.comment}} {{ comment.created_at }}</div> -->
+            <div class="text-2xl">
+                {{ comment.user_id }}　　{{ comment.created_at }}
+            </div>
+            <div class="text-xl mt-4 mr-40">
+                {{comment.comment}}
+            </div>
+            
+        </div>
+        
+        {% empty %}
+        <p class="bg-green-400">コメントはまだありません！</p>
+        {% endfor %}
+        
+            
+        <div class="mb-40 mt-12">
+            <a class="bg-amber-300 hover:bg-amber-400 text-white text-2px p-4 w-32 rounded-3xl" href="{% url 'dejavu_app:create_comments' novel.id %}">コメントを書く</a>
+        </div>
     </div>
-    {% empty %}
-    <p>コメントはありません</p>
-    {% endfor %}
-
-    <div>
-        <a href="{% url 'dejavu_app:create_comments' novel.id %}">コメントを書く</a>
-    </div>
+    
 </body>

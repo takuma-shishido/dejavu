@@ -89,7 +89,11 @@ class WriteContinueView(CreateView):
         novel = Novels.objects.get(pk=self.kwargs["novel_id"])
         context = super().get_context_data(**kwargs)
         context['novel'] = novel
+        context['comments'] = Comments.objects.filter(novel_id=self.kwargs['novel_id'])
         context['novel_id'] = self.kwargs["novel_id"]
+        novel.status = 0
+        print(novel.status)
+        print(self.kwargs['novel_id'])
         context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
         return context
 
@@ -127,37 +131,7 @@ def myProfile(request):
     context = {"dummy_top_data": dummy_top_data}
     return render(request, "myProfile.html", context)
 
-class Detail_view(CreateView):
-    template_name = 'comments/novel_detail.html'
-    model = NovelDetail
-    form_class = Novel_detail_from
-    
-    def get_success_url(self):
-        return reverse('comments', kwargs={'pk': self.object.id})
-    
-    def setup(self, request, *args, **kwargs):
-        if hasattr(self, "get") and not hasattr(self, "head"):
-            self.head = self.get
-        self.request = request
-        self.args = args
-        self.kwargs = kwargs
 
-    def get_context_data(self, **kwargs):
-        novel = Novels.objects.get(pk=self.kwargs["novel_id"])
-        context = super().get_context_data(**kwargs)
-        context['novel'] = novel
-        context['novel_id'] = self.kwargs["novel_id"]
-        context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
-        context['comments'] = Comments.objects.all()
-        return context
-    
-    # def get_context_data(self,  **kwargs):
-    #     context = super().get_context_data( **kwargs)
-    #     context['post'] = get_object_or_404(NovelDetail, pk=self.kwargs['novel_id'])
-    #     context['comments'] = Comments.objects.all()
-    #     print(context)
-    #     print("aa")
-    #     return context
 
  
 class Create_comments(CreateView):
@@ -166,16 +140,39 @@ class Create_comments(CreateView):
     form_class = CommentCreateForm
     success_url = reverse_lazy("write_continue")
 
+    def setup(self, request, *args, **kwargs):
+        if hasattr(self, "get") and not hasattr(self, "head"):
+            self.head = self.get
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+
     def form_valid(self, form):
-        post_pk = self.kwargs['pk']
-        print(post_pk)
-        post = get_object_or_404(NovelDetail, pk=post_pk)
+        # post_pk = self.kwargs['novel_id']
+        # print(post_pk)
+        # post = NovelDetail.objects.get(novel_id=post_pk)
         comment = form.save(commit=False)
-        comment.novel_id = post
+        comment.novel_id = self.kwargs['novel_id']
         comment.save()
-        return redirect('dejavu_app:write_continue', pk=post_pk)
+        return redirect('dejavu_app:write_continue', novel_id=self.kwargs['novel_id'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post'] = get_object_or_404(NovelDetail, pk=self.kwargs['novel_id'])
+        novel = Novels.objects.get(pk=self.kwargs["novel_id"])
+        print()
+        if len(NovelDetail.objects.all()) <= 0:
+            context["post"] = []
+            context['novel'] = novel
+        else:
+            print("a")
+            print(novel.title)
+            context['post'] = NovelDetail.objects.filter(novel_id=self.kwargs['novel_id'])
+            context['novel'] = novel
+            
+        print(context)
         return context
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['novel_id'] = self.kwargs["novel_id"]
+        initial['user_id'] = self.request.user.account_id
+        return initial

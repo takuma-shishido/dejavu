@@ -12,8 +12,8 @@ from django.db import models
 
 
 class Comments(models.Model):
-    user_id = models.IntegerField(default=0)
-    novel_id = models.ForeignKey(NovelDetail, on_delete=models.CASCADE, verbose_name='対象小説')
+    user_id = models.UUIDField()
+    novel_id = models.IntegerField()
     created_at = models.DateTimeField('作成日', default=timezone.now)
     comment = models.TextField('本文')
     
