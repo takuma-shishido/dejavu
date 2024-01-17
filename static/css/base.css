@@ -1,0 +1,18 @@
+html,body{
+    height: 100%;
+}
+
+body{
+    background-color: rgb(246, 252, 203);
+}
+
+.contents{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(246, 252, 203);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
