@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<div class="h1">Please Login</div>
+<div class="h1 mt-5 pt-5"><font color="#5f9ea0">Please Login</font></div>
 {% endblock %}
 {% block content %}
 <form method="post">
@@ -14,8 +14,8 @@
     <br>
     {% endfor %}
     <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Login</button>
-        <a href="{% url 'dejavu_app:home' %}" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="{% url 'dejavu_app:home' %}" class="btn btn-secondary">Back</a>
     </div>
 </form>
 {% endblock %}
