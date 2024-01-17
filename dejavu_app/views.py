@@ -93,7 +93,7 @@ class WriteContinueView(CreateView):
     def get_initial(self):
         initial = super().get_initial()
         initial['novel_id'] = self.kwargs["novel_id"]
-        initial['user_id'] = self.request.user.id
+        initial['user_id'] = self.request.user.account_id
         print(initial)
         return initial
 
