@@ -1,16 +1,19 @@
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse, HttpResponseNotFound
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.views import LoginView as BaseLoginView,  LogoutView as BaseLogoutView
-from django.urls import reverse_lazy
-from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm
+from django.urls import reverse_lazy, reverse
+from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm, CommentCreateForm, Novel_detail_from
+
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from .models import Novels, NovelDetail
 from django.utils.decorators import method_decorator
+from .models.comments import Comments
+from .models.novel_detail import NovelDetail
 
 
 
@@ -86,7 +89,11 @@ class WriteContinueView(CreateView):
         novel = Novels.objects.get(pk=self.kwargs["novel_id"])
         context = super().get_context_data(**kwargs)
         context['novel'] = novel
+        context['comments'] = Comments.objects.filter(novel_id=self.kwargs['novel_id'])
         context['novel_id'] = self.kwargs["novel_id"]
+        novel.status = 0
+        print(novel.status)
+        print(self.kwargs['novel_id'])
         context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
         return context
 
@@ -124,3 +131,48 @@ def myProfile(request):
     context = {"dummy_top_data": dummy_top_data}
     return render(request, "myProfile.html", context)
 
+
+
+ 
+class Create_comments(CreateView):
+    template_name = "comments/comments.html"
+    model = Comments
+    form_class = CommentCreateForm
+    success_url = reverse_lazy("write_continue")
+
+    def setup(self, request, *args, **kwargs):
+        if hasattr(self, "get") and not hasattr(self, "head"):
+            self.head = self.get
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+
+    def form_valid(self, form):
+        # post_pk = self.kwargs['novel_id']
+        # print(post_pk)
+        # post = NovelDetail.objects.get(novel_id=post_pk)
+        comment = form.save(commit=False)
+        comment.novel_id = self.kwargs['novel_id']
+        comment.save()
+        return redirect('dejavu_app:write_continue', novel_id=self.kwargs['novel_id'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        novel = Novels.objects.get(pk=self.kwargs["novel_id"])
+        print()
+        if len(NovelDetail.objects.all()) <= 0:
+            context["post"] = []
+            context['novel'] = novel
+        else:
+            print("a")
+            print(novel.title)
+            context['post'] = NovelDetail.objects.filter(novel_id=self.kwargs['novel_id'])
+            context['novel'] = novel
+            
+        print(context)
+        return context
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['novel_id'] = self.kwargs["novel_id"]
+        initial['user_id'] = self.request.user.account_id
+        return initial
