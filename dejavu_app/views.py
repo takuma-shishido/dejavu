@@ -91,10 +91,11 @@ class WriteContinueView(CreateView):
         context['novel'] = novel
         context['comments'] = Comments.objects.filter(novel_id=self.kwargs['novel_id'])
         context['novel_id'] = self.kwargs["novel_id"]
-        novel.status = 0
-        print(novel.status)
         print(self.kwargs['novel_id'])
-        context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
+        try:
+            context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
+        except:
+            context['novel_status'] = "finish"
         return context
 
     def get_initial(self):
