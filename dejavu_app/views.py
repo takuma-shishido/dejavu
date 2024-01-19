@@ -165,7 +165,7 @@ def myProfile(request):
     # context = {"myProfile_info" : myProfile_info}
     context = {"dummy_top_data": dummy_top_data}
     return render(request, "myProfile.html", context)
- 
+
 class Create_comments(CreateView):
     template_name = "comments/comments.html"
     model = Comments

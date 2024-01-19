@@ -17,7 +17,6 @@ class SignUpForm(UserCreationForm):
             "birth_date",
         )
 
-
 class LoginFrom(AuthenticationForm):
     class Meta:
         model = User
