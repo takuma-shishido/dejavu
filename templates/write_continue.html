@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <html>
 
 <head>
@@ -9,31 +10,26 @@
 </head>
 
 <body bgcolor="#EFEFEF">
-    <!-- <nav class="p-5 bg-slate-200 shadow">
-        <h1 class="text-white">ロゴ</h1>
-    </nav> -->
     <a class="w-32" href="{% url 'dejavu_app:home' %}">
-
         <img class="text-2xl w-20 fixed" src="{{ logo_sub }}"></img>
     </a>
+
     <div class="flex flex-row pt-20 items-end">
         <div class="ml-10 text-4xl">{{ novel.title }}</div>
         <div class="ml-36 text-3xl">{{ owner_name }}</div>
     </div>
-    <!-- <div class="ml-10 mt-5 text-4xl" >「{{ novel.title }}」の続きを書く</div> -->
 
     <div class="flex flex-row justify-center mt-10">
         <div class="flex flex-col w-8/12">
             <div class="ml-10">
                 <div class="mt-10 text-4xl text-zinc-500">Synopsis</div>
                 <div class="w-96 mt-10 text-2xl">{{ novel.synopsis }}</div>
-                <!-- <div class="w-96 h-96 bg-gray-100">{{ novel.synopsis }}</div> -->
             </div>
         </div>
 
         <div
             class="book-face mr-20 mt-10 w-96 h-96 rounded-ss-3xl rounded-es-3xl bg-neutral-500 flex items-center justify-center">
-            <p>アップロードされた画像</p>
+            <p>Image</p>
         </div>
 
     </div>
@@ -42,22 +38,26 @@
     <form action="{% url 'dejavu_app:write_continue' novel_id  %}" method="POST">
         <div class="flex flex-col justify-center items-center">
             <!-- （承）にはユーザーが書きたい承転結のどれかが入る -->
-            <div class="text-4xl mt-20">{{ novel.title }} ({{novel_status}})</div>
-            <div class="mt-10">
+            <div class="text-4xl mt-20">Post {{ novel.title }}'s {{novel_status}}</div>
+            <div class="mt-10 w-1/2 ">
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                {{ field.label }}
-                {{ field }}
+                {% if field.label == "Content" %}
+
+                {% endif %}
+                {{ field|add_class:"bg-neutral-300 border rounded-2xl w-full h-64 p-2" }}
+
                 {{ field.errors }}
                 {% endfor %}
                 <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->
             </div>
             <div class="flex items-center justify-center bg-slate-950 mt-12 text-2xl p-5 w-32 rounded-3xl">
                 <button type="submit" class="text-white">
-                    投稿
+                    Post
                 </button>
                 {% csrf_token %}
             </div>
+            {% endif %}
             {% endif %}
 
             <div
@@ -90,33 +90,35 @@
             {% endif %}
             {% endfor %}
             {% else %}
-            {% endif %}
+
         </div>
     </form>
     {% endif %}
-    <div class="flex flex-col items-center justify-center text-center mt-10">
-        <h3 class="text-4xl m-5">コメント</h3>
+    <div class="flex flex-col my-10 w-1/2">
+        <h3 class="text-4xl m-5 flex justify-center">Comment</h3>
         {% for comment in comments %}
-        <div class="bg-yellow-800 bg-opacity-70 p-3 mt-6">
-            <!-- <div class='border-bottom'>{{ comment.user_id }} {{comment.comment}} {{ comment.created_at }}</div> -->
+        <div class="bg-yellow-800 bg-opacity-70 p-3 mt-6 w-full rounded-2xl items-center flex flex-col">
             <div class="text-2xl">
-                {{ comment.user_id }}　　{{ comment.created_at }}
-            </div>
-            <div class="text-xl mt-4 mr-40">
-                {{comment.comment}}
-            </div>
-
+            {{ comment.created_at }}
+            {{comment.comment}}
         </div>
-
+        <!-- <div class="text-xl mt-4 mr-40">
+        </div> -->
         {% empty %}
-        <p class="bg-green-400">コメントはまだありません！</p>
+        <div class="flex items-center justify-center text-center w-full">
+
+            <p class="bg-green-400 ">コメントはまだありません！</p>
+        </div>
+        </div>
         {% endfor %}
 
 
+        {% if request.user.is_authenticated == True %}
         <div class="mb-40 mt-12">
-            <a class="bg-amber-300 hover:bg-amber-400 text-white text-2px p-4 w-32 rounded-3xl"
-                href="{% url 'dejavu_app:create_comments' novel.id %}">コメントを書く</a>
+            <a class=" bg-amber-300 hover:bg-amber-400 text-white text-2px p-4 w-32 rounded-3xl"
+                href="{% url 'dejavu_app:create_comments' novel.id %}">Write a Comment</a>
         </div>
+        {% endif %}
     </div>
 
 </body>

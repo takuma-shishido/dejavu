@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from .models import Novels, NovelDetail
+
 # User をUsersに変更
 from accounts.models import User
 from .models.comments import Comments
@@ -22,22 +23,30 @@ class LoginFrom(AuthenticationForm):
     class Meta:
         model = User
 
+
 class NovelCreateForm(forms.ModelForm):
     title = forms.CharField(required=True)
     synopsis = forms.CharField(widget=forms.Textarea, required=True)
     introduction = forms.CharField(widget=forms.Textarea, required=True)
+
     class Meta:
         model = Novels
-        fields = ('title', 'synopsis', 'introduction')
+        fields = ("title", "synopsis", "introduction")
+
 
 class NovelDetailCreateForm(forms.ModelForm):
     class Meta:
         model = NovelDetail
-        fields = '__all__'
+        fields = ("content", "novel_id", "user_id")
 
-    # def __init__(self, *args, **kwargs):
-    #     self.novel_id  = kwargs.pop('novel_id')
-    #     super(NovelDetailCreateForm,self).__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(NovelDetailCreateForm, self).__init__(*args, **kwargs)
+        self.fields["novel_id"].widget = forms.HiddenInput()
+        self.fields["user_id"].widget = forms.HiddenInput()
+        # self.fields["novel_id"].initial = kwargs["novel_id"]
+
+        # self.fields["user_id"].widget = forms.HiddenInput()
+        # self.fields["user_id"].initial = kwargs["novel_id"]
 
     def save(self, commit=True):
         article = super().save(commit)
@@ -47,14 +56,17 @@ class NovelDetailCreateForm(forms.ModelForm):
             novel.status += 1
             novel.save()
         return article
-    
+
+
 class Novel_detail_from(forms.ModelForm):
     class Meta:
         model = NovelDetail
-        exclude = ('novel_master_id', 'user_id', 'novel_id', 'content')
+        exclude = ("novel_master_id", "user_id", "novel_id", "content")
+
 
 class CommentCreateForm(forms.ModelForm):
     """コメントフォーム"""
+
     class Meta:
         model = Comments
-        exclude = ('novel_id', 'created_at')
+        exclude = ("novel_id", "created_at")

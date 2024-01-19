@@ -1,7 +1,7 @@
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse, HttpResponseNotFound
 
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.views.generic import TemplateView, CreateView
 from django.contrib.auth.views import (
@@ -9,7 +9,13 @@ from django.contrib.auth.views import (
     LogoutView as BaseLogoutView,
 )
 from django.urls import reverse_lazy
-from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm, CommentCreateForm
+from .forms import (
+    SignUpForm,
+    LoginFrom,
+    NovelCreateForm,
+    NovelDetailCreateForm,
+    CommentCreateForm,
+)
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from .models import Novels, NovelDetail, User
@@ -25,7 +31,7 @@ def home(request):
     novels = Novels.objects.all()
     context = {"novels": novels}
     try:
-        top_novel = Novels.objects.get(id=8)
+        top_novel = Novels.objects.get(id=1)
         middle_novels = Novels.objects.filter(id__lte=5)
         context = {
             "novels": novels,
@@ -100,45 +106,40 @@ class WriteContinueView(CreateView):
         novel = Novels.objects.get(pk=self.kwargs["novel_id"])
         context = super().get_context_data(**kwargs)
         context["novel"] = novel
-        context['comments'] = Comments.objects.filter(novel_id=self.kwargs['novel_id'])
+        context["comments"] = Comments.objects.filter(novel_id=self.kwargs["novel_id"])
         context["novel_id"] = self.kwargs["novel_id"]
-        context['logo_sub'] = static("img/logo-sub.PNG")
+        context["logo_sub"] = static("img/logo-sub.PNG")
 
         try:
             user = User.objects.get(account_id=novel.user_id)
             context["owner_name"] = user.first_name
-            context["old_novel"] = NovelDetail.objects.filter(novel_id=self.kwargs["novel_id"])
+            context["old_novel"] = NovelDetail.objects.filter(
+                novel_id=self.kwargs["novel_id"]
+            )
             print(context["old_novel"])
-            # self.kwargs = super(WriteContinueView,self).get_form_kwargs()
-            # self.kwargs['novel_id'] = self.kwargs['novel_id'] # novel_idはパラメータ
         except:
             print("anonymous user")
-        # context["old_novel"] = NovelDetail.objects.filter(novel_id=self.kwargs["novel_id"])
-        # print(context["old_novel"])
 
         try:
             context["novel_status"] = Novels.STATUS_CHOICES[novel.status][1]
         except:
-            context['novel_status'] = "finish"
+            context["novel_status"] = "finish"
         return context
 
     def get_initial(self):
-        initial = super().get_initial()
-        initial['novel_id'] = self.kwargs["novel_id"]
-        initial['user_id'] = self.request.user.account_id
-        print(initial)
+        try:
+            initial = super().get_initial()
+            initial["novel_id"] = self.kwargs["novel_id"]
+            initial["user_id"] = self.request.user.account_id
+            print(initial)
+        except:
+            print("anonymousUser")
         return initial
 
     def form_valid(self, form):
         form.instance.user_id = self.request.user.account_id
-    #     # self.kwargs = super(WriteContinueView,self).get_form_kwargs()
-    #     # self.kwargs['novel_id'] = self.kwargs['novel_id'] # novel_idはパラメータ
-    #     # form.instance.novel_id = self.kwargs["novel_id"]
+        form.instance.novel_id = self.kwargs["novel_id"]
         return super().form_valid(form)
-
-    # def get_form_kwargs(self):
-    #     return kwargs
-
 
 
 # myProfile画面
@@ -165,7 +166,8 @@ def myProfile(request):
     # context = {"myProfile_info" : myProfile_info}
     context = {"dummy_top_data": dummy_top_data}
     return render(request, "myProfile.html", context)
- 
+
+
 class Create_comments(CreateView):
     template_name = "comments/comments.html"
     model = Comments
@@ -184,22 +186,25 @@ class Create_comments(CreateView):
         # print(post_pk)
         # post = NovelDetail.objects.get(novel_id=post_pk)
         comment = form.save(commit=False)
-        comment.novel_id = self.kwargs['novel_id']
+        comment.novel_id = self.kwargs["novel_id"]
         comment.save()
-        return redirect('dejavu_app:write_continue', novel_id=self.kwargs['novel_id'])
+        return redirect("dejavu_app:write_continue", novel_id=self.kwargs["novel_id"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         novel = Novels.objects.get(pk=self.kwargs["novel_id"])
         if len(NovelDetail.objects.all()) <= 0:
             context["post"] = []
-            context['novel'] = novel
+            context["novel"] = novel
         else:
-            context['post'] = NovelDetail.objects.filter(novel_id=self.kwargs['novel_id'])
-            context['novel'] = novel
+            context["post"] = NovelDetail.objects.filter(
+                novel_id=self.kwargs["novel_id"]
+            )
+            context["novel"] = novel
         return context
+
     def get_initial(self):
         initial = super().get_initial()
-        initial['novel_id'] = self.kwargs["novel_id"]
-        initial['user_id'] = self.request.user.account_id
+        initial["novel_id"] = self.kwargs["novel_id"]
+        initial["user_id"] = self.request.user.account_id
         return initial
