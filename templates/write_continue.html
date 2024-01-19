@@ -7,10 +7,12 @@
     <title>Dejavu</title>
 </head>
 <body>
-    <nav class="p-5 bg-green-900 shadow">
-        <h1 class="text-white">ロゴ</h1>
+    <nav class="p-5 bg-gray-700 rounded-b-3xl shadow">
+        <a class="w-32" href="{% url 'dejavu_app:home' %}">
+            <img class="text-2xl w-14 h-14" src=" ../static/img/logo-sub.PNG "></img>
+        </a>
     </nav>
-    <div class="ml-10 mt-5 text-4xl" >「{{ novel.title }}」の続きを書く</div>
+    <div class= "mt-5 text-4xl" >「{{ novel.title }}」の続きを書く</div>
     <div class="flex justify-around">
         <div>
             <div class="mt-10 w-96 h-96 bg-gray-100 flex items-center justify-center">
