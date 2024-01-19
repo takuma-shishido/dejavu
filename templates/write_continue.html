@@ -7,7 +7,8 @@
 
     <title>Dejavu</title>
 </head>
-<body  bgcolor="#EFEFEF">
+
+<body bgcolor="#EFEFEF">
     <!-- <nav class="p-5 bg-slate-200 shadow">
         <h1 class="text-white">ロゴ</h1>
     </nav> -->
@@ -30,9 +31,10 @@
             </div>
         </div>
 
-            <div class="book-face mr-20 mt-10 w-96 h-96 rounded-ss-3xl rounded-es-3xl bg-neutral-500 flex items-center justify-center">
-                <p>アップロードされた画像</p>
-            </div>
+        <div
+            class="book-face mr-20 mt-10 w-96 h-96 rounded-ss-3xl rounded-es-3xl bg-neutral-500 flex items-center justify-center">
+            <p>アップロードされた画像</p>
+        </div>
 
     </div>
     {% if request.user.is_authenticated == True %}
@@ -44,46 +46,49 @@
             <div class="mt-10">
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                    
-                        {{ field.label }}
-                        {{ field }}
-                        {{ field.errors }}
+                {{ field.label }}
+                {{ field }}
+                {{ field.errors }}
                 {% endfor %}
                 <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->
             </div>
-            <div class="flex items-center justify-center bg-slate-950 mt-12 text-2xl p-5 w-32 rounded-3xl">
-                <button type="submit" class="text-white">
+            <div class="">
+                <button type="submit" class="flex items-center justify-center bg-slate-950 mt-12 text-2xl p-5 w-32 rounded-3xl text-white">
                     投稿
                 </button>
                 {% csrf_token %}
             </div>
             {% endif %}
 
-            <div class="mt-20 mb-10 mx-20 w-11/12 h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
+            <div
+                class="mt-20 mb-10 mx-20 w-11/12 h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
                 <h1 class="text-3xl">Introduction</h1>
                 <h1 class="text-3xl  pt-5">{{ novel.introduction }}</h1>
             </div>
 
             {% if old_novel %}
-                {% for novel in old_novel %}
-                    {% if forloop.counter == 1 %}
-                        <div class="mt-20 mb-10 mx-20 w-11/12 h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
-                            <h1 class="text-3xl">Development</h1>
-                            <h1 class="text-3xl  pt-5">{{ novel }}</h1>
-                        </div>
-                    {% elif forloop.counter == 2 %}
-                    <div class="mt-20 mb-10 w-11/12 h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
-                        <h1 class="text-3xl">Turn</h1>
-                        <h1 class="text-3xl  pt-5">{{ novel }}</h1>
-                    </div>
-                        <!-- <h1>転 {{ novel }}</h1> -->
-                    {% elif forloop.counter == 3 %}
-                        <div class="mt-20 mb-10 w-11/12 h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
-                            <h1 class="text-3xl">Conclusion</h1>
-                            <h1 class="text-3xl  pt-5">{{ novel }}</h1>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+            {% for novel in old_novel %}
+            {% if forloop.counter == 1 %}
+            <div
+                class="mt-20 mb-10 mx-20 w-11/12 h-auto pb-10 pt-10 px-10 rounded-3xl flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                <h1 class="text-3xl">Development</h1>
+                <h1 class="text-3xl  pt-5">{{ novel }}</h1>
+            </div>
+            {% elif forloop.counter == 2 %}
+            <div
+                class="mt-20 mb-10 w-11/12 h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                <h1 class="text-3xl">Turn</h1>
+                <h1 class="text-3xl  pt-5">{{ novel }}</h1>
+            </div>
+            <!-- <h1>転 {{ novel }}</h1> -->
+            {% elif forloop.counter == 3 %}
+            <div
+                class="mt-20 mb-10 w-11/12 h-auto mx-20 rounded-3xl pt-10 pb-10 flex flex-col justify-center  bg-neutral-300 items-center text-center">
+                <h1 class="text-3xl">Conclusion</h1>
+                <h1 class="text-3xl  pt-5">{{ novel }}</h1>
+            </div>
+            {% endif %}
+            {% endfor %}
             {% else %}
             {% endif %}
         </div>
