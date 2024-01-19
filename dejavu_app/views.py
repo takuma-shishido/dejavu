@@ -4,39 +4,43 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.views.generic import TemplateView, CreateView
-from django.contrib.auth.views import LoginView as BaseLoginView,  LogoutView as BaseLogoutView
-from django.urls import reverse_lazy, reverse
-from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm, CommentCreateForm, Novel_detail_from
-
+from django.contrib.auth.views import (
+    LoginView as BaseLoginView,
+    LogoutView as BaseLogoutView,
+)
+from django.urls import reverse_lazy
+from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-from .models import Novels, NovelDetail
+from .models import Novels, NovelDetail, User
 from django.utils.decorators import method_decorator
+from django.templatetags.static import static
 from .models.comments import Comments
 from .models.novel_detail import NovelDetail
 
-
-
-
 # Create your views here.
+
 
 def home(request):
     novels = Novels.objects.all()
-    context = {
-        'novels': novels
-    }
+    context = {"novels": novels}
     try:
         top_novel = Novels.objects.get(id=8)
         middle_novels = Novels.objects.filter(id__lte=5)
-        context = {'novels': novels, 'top_novel': top_novel, 'middle_novels': middle_novels}
+        context = {
+            "novels": novels,
+            "top_novel": top_novel,
+            "middle_novels": middle_novels,
+        }
     except:
-        print('要素数が8未満です or 5未満です')
+        print("要素数が8未満です or 5未満です")
     return render(request, "home/home.html", context)
 
+
 class SignupView(CreateView):
-    form_class = SignUpForm # 作成した登録用フォームを設定
+    form_class = SignUpForm  # 作成した登録用フォームを設定
     template_name = "signup.html"
-    success_url = reverse_lazy("accounts:index") # ユーザー作成後のリダイレクト先ページ
+    success_url = reverse_lazy("accounts:index")  # ユーザー作成後のリダイレクト先ページ
 
     def form_valid(self, form):
         # ユーザー作成後にそのままログイン状態にする設定
@@ -48,29 +52,36 @@ class SignupView(CreateView):
         login(self.request, user)
         return response
 
+
 # ログインビューを作成
 class LoginView(BaseLoginView):
     form_class = LoginFrom
     template_name = "login.html"
 
+
 class LogoutView(BaseLogoutView):
     success_url = reverse_lazy("dejavu_app:home")
+
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
-@method_decorator(login_required, name='dispatch')
+
+@method_decorator(login_required, name="dispatch")
 # create_novel画面
+
 
 class CreateNovelView(CreateView):
     model = Novels
     form_class = NovelCreateForm
     success_url = reverse_lazy("dejavu_app:home")
     template_name = "create_novel.html"
+
     # userを入れる
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
 
 class WriteContinueView(CreateView):
     model = NovelDetail
@@ -88,12 +99,24 @@ class WriteContinueView(CreateView):
     def get_context_data(self, **kwargs):
         novel = Novels.objects.get(pk=self.kwargs["novel_id"])
         context = super().get_context_data(**kwargs)
-        context['novel'] = novel
-        context['comments'] = Comments.objects.filter(novel_id=self.kwargs['novel_id'])
-        context['novel_id'] = self.kwargs["novel_id"]
-        print(self.kwargs['novel_id'])
+        context["novel"] = novel
+        context["novel_id"] = self.kwargs["novel_id"]
+        context['logo_sub'] = static("img/logo-sub.PNG")
+
         try:
-            context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
+            user = User.objects.get(account_id=novel.user_id)
+            context["owner_name"] = user.first_name
+            context["old_novel"] = NovelDetail.objects.filter(novel_id=self.kwargs["novel_id"])
+            print(context["old_novel"])
+            # self.kwargs = super(WriteContinueView,self).get_form_kwargs()
+            # self.kwargs['novel_id'] = self.kwargs['novel_id'] # novel_idはパラメータ
+        except:
+            print("anonymous user")
+        # context["old_novel"] = NovelDetail.objects.filter(novel_id=self.kwargs["novel_id"])
+        # print(context["old_novel"])
+
+        try:
+            context["novel_status"] = Novels.STATUS_CHOICES[novel.status][1]
         except:
             context['novel_status'] = "finish"
         return context
@@ -104,6 +127,17 @@ class WriteContinueView(CreateView):
         initial['user_id'] = self.request.user.account_id
         print(initial)
         return initial
+
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user.id
+    #     # self.kwargs = super(WriteContinueView,self).get_form_kwargs()
+    #     # self.kwargs['novel_id'] = self.kwargs['novel_id'] # novel_idはパラメータ
+    #     # form.instance.novel_id = self.kwargs["novel_id"]
+        return super().form_valid(form)
+
+    # def get_form_kwargs(self):
+    #     return kwargs
+
 
 
 # myProfile画面
@@ -116,7 +150,6 @@ def myProfile(request):
         {
             "title": "WAWARA",
             "image_url": "https://m.media-amazon.com/images/I/71PRHp6lTXL._AC_UF1000,1000_QL80_.jpg",
-
         },
         {
             "title": "Users can do it",
@@ -131,9 +164,6 @@ def myProfile(request):
     # context = {"myProfile_info" : myProfile_info}
     context = {"dummy_top_data": dummy_top_data}
     return render(request, "myProfile.html", context)
-
-
-
  
 class Create_comments(CreateView):
     template_name = "comments/comments.html"
