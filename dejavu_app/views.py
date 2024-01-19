@@ -91,7 +91,8 @@ class WriteContinueView(CreateView):
         context['novel'] = novel
         context['comments'] = Comments.objects.filter(novel_id=self.kwargs['novel_id'])
         context['novel_id'] = self.kwargs["novel_id"]
-        novel.status = 0
+        #novel.status = 0
+        #todo novel.statusが４以上になるとページが開けなくなる
         print(novel.status)
         print(self.kwargs['novel_id'])
         context['novel_status'] = Novels.STATUS_CHOICES[novel.status][1]
