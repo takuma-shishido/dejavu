@@ -9,7 +9,7 @@ from django.contrib.auth.views import (
     LogoutView as BaseLogoutView,
 )
 from django.urls import reverse_lazy
-from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm
+from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm, CommentCreateForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from .models import Novels, NovelDetail, User
@@ -100,6 +100,7 @@ class WriteContinueView(CreateView):
         novel = Novels.objects.get(pk=self.kwargs["novel_id"])
         context = super().get_context_data(**kwargs)
         context["novel"] = novel
+        context['comments'] = Comments.objects.filter(novel_id=self.kwargs['novel_id'])
         context["novel_id"] = self.kwargs["novel_id"]
         context['logo_sub'] = static("img/logo-sub.PNG")
 
@@ -129,7 +130,7 @@ class WriteContinueView(CreateView):
         return initial
 
     def form_valid(self, form):
-        form.instance.user_id = self.request.user.id
+        form.instance.user_id = self.request.user.account_id
     #     # self.kwargs = super(WriteContinueView,self).get_form_kwargs()
     #     # self.kwargs['novel_id'] = self.kwargs['novel_id'] # novel_idはパラメータ
     #     # form.instance.novel_id = self.kwargs["novel_id"]
@@ -190,17 +191,12 @@ class Create_comments(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         novel = Novels.objects.get(pk=self.kwargs["novel_id"])
-        print()
         if len(NovelDetail.objects.all()) <= 0:
             context["post"] = []
             context['novel'] = novel
         else:
-            print("a")
-            print(novel.title)
             context['post'] = NovelDetail.objects.filter(novel_id=self.kwargs['novel_id'])
             context['novel'] = novel
-            
-        print(context)
         return context
     def get_initial(self):
         initial = super().get_initial()
