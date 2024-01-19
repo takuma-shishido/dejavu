@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 'dejavu_app',
     "accounts",
-    # formの装飾に使う
-    # "widget_tweaks",
+    "widget_tweaks",
 ]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -125,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LOGIN_REDIRECT_URL = "dejavu_app:home"
-LOGOUT_REDIRECT_URL = "dejavu_app:index"
+LOGOUT_REDIRECT_URL = "dejavu_app:home"
 
 LANGUAGE_CODE = "en-us"
 

@@ -11,16 +11,25 @@
     {% if request.user.is_authenticated == True %}
     <div class="flex flex-row text-right pt-5">
         <div class="text-2xl px-5">{{ request.user.first_name }}</div>
-        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center text-right" href="{% url 'accounts:logout' %}">
-            <h1 class="text-xl text-black" >Logout</h1>
+        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center text-right"
+            href="{% url 'accounts:logout' %}">
+            <h1 class="text-xl text-black">Logout</h1>
         </a>
     </div>
     {% else %}
     <div class="flex-row text-right pt-5  pl-5">
-        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center" href="{% url 'accounts:login' %}">
-            <h1 class="text-xl text-black" >Login</h1>
+        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center"
+            href="{% url 'accounts:login' %}">
+            <h1 class="text-xl text-black">Login</h1>
         </a>
     </div>
+    <div class="flex-row text-right pt-5  pl-5">
+        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center"
+            href="{% url 'accounts:signup' %}">
+            <h1 class="text-xl text-black">Signup</h1>
+        </a>
+    </div>
+
     {% endif %}
     <!-- 一応 logo -->
     <!-- <div class="w-32 ">
@@ -62,7 +71,8 @@
                 <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->
                 <div class="w-72 h-20 text-left font-sans px-10 text-ellipsis">{{ novel.synopsis }}</div>
                 <!-- Read button  -->
-                <a href="{% url 'dejavu_app:write_continue' novel.id %}" class="w-36 h-36 bg-neutral-700 p-4 mt-20 ml-10 rounded-2xl text-gray-50">
+                <a href="{% url 'dejavu_app:write_continue' novel.id %}"
+                    class="w-36 h-36 bg-neutral-700 p-4 mt-20 ml-10 rounded-2xl text-gray-50">
 
                     <button class="">Read</button>
                 </a>

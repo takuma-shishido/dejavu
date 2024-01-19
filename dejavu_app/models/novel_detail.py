@@ -2,7 +2,7 @@ from django.db import models
 from dejavu_app.models.novel_master import NovelMaster
 
 class NovelDetail(models.Model):
-    user_id = models.IntegerField()
+    user_id = models.UUIDField()
     novel_id = models.IntegerField()
     content = models.CharField(max_length=255)
 
