@@ -3,6 +3,8 @@ from django import forms
 from .models import Novels, NovelDetail
 # User をUsersに変更
 from accounts.models import User
+from .models.comments import Comments
+from .models.novel_detail import NovelDetail
 
 
 class SignUpForm(UserCreationForm):
@@ -31,7 +33,12 @@ class NovelCreateForm(forms.ModelForm):
 class NovelDetailCreateForm(forms.ModelForm):
     class Meta:
         model = NovelDetail
-        fields = "__all__"
+        fields = '__all__'
+
+    # def __init__(self, *args, **kwargs):
+    #     self.novel_id  = kwargs.pop('novel_id')
+    #     super(NovelDetailCreateForm,self).__init__(*args,**kwargs)
+
     def save(self, commit=True):
         article = super().save(commit)
         print(self.cleaned_data)
@@ -40,3 +47,14 @@ class NovelDetailCreateForm(forms.ModelForm):
             novel.status += 1
             novel.save()
         return article
+    
+class Novel_detail_from(forms.ModelForm):
+    class Meta:
+        model = NovelDetail
+        exclude = ('novel_master_id', 'user_id', 'novel_id', 'content')
+
+class CommentCreateForm(forms.ModelForm):
+    """コメントフォーム"""
+    class Meta:
+        model = Comments
+        exclude = ('novel_id', 'created_at')
