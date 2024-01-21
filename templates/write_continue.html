@@ -10,6 +10,12 @@
 </head>
 
 <body bgcolor="#EFEFEF">
+    <!-- <nav class="p-5 bg-slate-200 shadow">
+        <h1 class="text-white">ロゴ</h1>
+    </nav> -->
+    <a class="w-32" href="{% url 'dejavu_app:home' %}">
+
+<body bgcolor="#EFEFEF">
     <a class="w-32" href="{% url 'dejavu_app:home' %}">
         <img class="text-2xl w-20 fixed" src="{{ logo_sub }}"></img>
     </a>
@@ -43,10 +49,10 @@
                 {{ form.non_field_errors }}
                 {% for field in form %}
                 {% if field.label == "Content" %}
-
                 {% endif %}
                 {{ field|add_class:"bg-neutral-300 border rounded-2xl w-full h-64 p-2" }}
-
+                {{ field.label }}
+                {{ field }}
                 {{ field.errors }}
                 {% endfor %}
                 <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->

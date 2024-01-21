@@ -9,13 +9,7 @@ from django.contrib.auth.views import (
     LogoutView as BaseLogoutView,
 )
 from django.urls import reverse_lazy
-from .forms import (
-    SignUpForm,
-    LoginFrom,
-    NovelCreateForm,
-    NovelDetailCreateForm,
-    CommentCreateForm,
-)
+from .forms import SignUpForm, LoginFrom, NovelCreateForm, NovelDetailCreateForm, CommentCreateForm
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from .models import Novels, NovelDetail, User
@@ -197,6 +191,7 @@ class Create_comments(CreateView):
             context["post"] = []
             context["novel"] = novel
         else:
+
             context["post"] = NovelDetail.objects.filter(
                 novel_id=self.kwargs["novel_id"]
             )
