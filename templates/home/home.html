@@ -8,29 +8,37 @@
 </head>
 
 <body bgcolor="#EFEFEF">
-    {% if request.user.is_authenticated == True %}
-    <div class="flex flex-row text-right pt-5">
-        <div class="text-2xl px-5">{{ request.user.first_name }}</div>
-        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center text-right"
-            href="{% url 'accounts:logout' %}">
-            <h1 class="text-xl text-black">Logout</h1>
+    {% if request.user.is_authenticated == True%}
+    <nav class="p-5 bg-gray-700 flex text-center items-center rounded-b-3xl">
+        <a class="mr-5" href="{% url 'dejavu_app:home' %}">
+            <img class="text-2xl w-14 h-14" src=" ../static/img/logo-sub.PNG "></img>
         </a>
-    </div>
+        <div class="text-2xl text-neutral-300">{{ request.user.first_name }}</div>
+        <a class="w-32 h-10 bg-neutral-400 rounded-3xl ml-auto" href="{% url 'accounts:logout' %}">
+            <p class="text-xl mt-1">Logout</p>
+        </a>
+    </nav>
     {% else %}
-    <div class="flex flex-row text-right pt-5  pl-5">
-        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center"
-            href="{% url 'accounts:login' %}">
-            <h1 class="text-xl text-black">Login</h1>
-        </a>
-        <a class="ml-10 w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center"
-            href="{% url 'accounts:signup' %}">
-            <h1 class="text-xl text-black">Signup</h1>
-        </a>
-    </div>
-
-
+    <nav class="p-5 bg-gray-700 flex text-center items-center rounded-b-3xl">
+        <div class="mr-5">
+            <a class="w-32" href="{% url 'dejavu_app:home' %}">
+                <img class="text-2xl w-14 h-14" src=" ../static/img/logo-sub.PNG "></img>
+            </a>
+        </div>
+        <div class="w-32 h-10 bg-neutral-400 rounded-3xl mr-3">
+            <a href="{% url 'accounts:login' %}">
+                <p class="text-xl mt-1">Login</p>
+            </a>
+        </div>
+        <div class="w-32 h-10 bg-neutral-400 rounded-3xl mr-3">
+            <a href="{% url 'accounts:signup' %}">
+                <p class="text-xl mt-1">Signup</p>
+            </a>
+        </div>
+    </nav>
     {% endif %}
-    <div class="text-center m-20 flex-wrap inset-0 flex items-center justify-center">
+    <div class="text-center flex-wrap inset-0 flex items-center justify-center">
+
         <!-- write continue button -->
         <!-- ここはis_finishがfalseのデータだけを取り出して、homeに表示させる？？（別のページ作るか〜） -->
         <a href=""
