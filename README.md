@@ -30,16 +30,21 @@
 
 - 開発期間:　約3ヶ月 (10.20 ~ 1.23)
 - チーム・個人：　チーム(5名)
-- ER図:　
 - ペルソナ:　[DEJAVU PERSONA](https://docs.google.com/spreadsheets/d/1ncy-5R4Dad6RDKqWLslk-PTauZW9SM_X/edit#gid=1803559359)
 - アイデアたち:　[DEJAVU IDEAS](https://docs.google.com/spreadsheets/d/1ncy-5R4Dad6RDKqWLslk-PTauZW9SM_X/edit#gid=2123999459)
 - 要件定義書:　[DEJAVU REQUIREMENTS DEFINITION](https://docs.google.com/spreadsheets/d/1ncy-5R4Dad6RDKqWLslk-PTauZW9SM_X/edit#gid=752554769)
 
-## ER
-![Alt text](er-dejavu.png)
+<br>
+
+## ERD
+![ER](readme_img/er-dejavu.jpeg)
+
+
+<br>
+
 ## 🥩 Screen Shots
 ### Home Page
-![HomePage](HomePage-Dejavu.png)
+![HomePage](readme_img/HomePage-Dejavu.png)
 - ユーザーが一番初めに見るページです。
 
 - [ログイン状態は保持されるので、一度ログインしたら上に名前が表示されるデザインを考案しました。](https://github.com/takuma-shishido/dejavu/commitf4e810efea67bbe89edc855525b28146692f9954) by Taichi
@@ -48,7 +53,7 @@
 <br>
 
 ### Home Page (Second View)
-![HomePage-Dejavu-SecondView](HomePage-Dejavu-SecondView.png)
+![HomePage-Dejavu-SecondView](readme_img/HomePage-Dejavu-SecondView.png)
 
 - スクロールした後のHomePageです。
 
@@ -57,7 +62,7 @@
 <br>
 
 ### CreateNovelPage
-![CreateNovelPage](CreateNovelPage-Dejavu.png)
+![CreateNovelPage](readme_img/CreateNovelPage-Dejavu.png)
 
 - [そうですね、やっぱりユーザーが使いやすいようにフォームの大きさを意識しました。はい。なんなんあ次の質問を聞いてないです。ちゃうやんか。僕はマッドサイエンティストさ。イタイイタイ痛いよぉ全て壊しちゃうからね。](https://github.com/takuma-shishido/dejavu/commit/a202b2ba5ac4c670599fa2c8305d07bdec22acdb) by Taichi
 
@@ -65,34 +70,34 @@
 
 ### NovelDetailsPage
 
-![NovelDetailsPage-Dejavu](NovelDetailsPage-Dejavu.png)
+![NovelDetailsPage-Dejavu](readme_img/NovelDetailsPage-Dejavu.png)
 - [えええええ。ちょっと待って待って一回消して。ねえええふっふっふあ自動翻訳の音声字幕みたいなやつむずっわかった本当に]()
 
 <br>
 
 ### NovelDetailsPage Second View
 
-![NovelDetailsPage-Dejavu-Second](NovelDetailsPage-Dejavu-Second.png)
+![NovelDetailsPage-Dejavu-Second](readme_img/NovelDetailsPage-Dejavu-Second.png)
 
 - [初めての共同開発だったから、結構ね難しいことがあったんだけどまあなんかこんな感じでディスコードを使って一緒にやるとかも楽しかったです。](https://github.com/takuma-shishido/dejavu/commit/c688fa3b1171fe7d5296d8a2a9d7f10a95063acd) by Amit
 
 <br>
 
 ### NovelDetailsPage Second View
-![NovelDetailsPage-Dejavu-Third](NovelDetailsPage-Dejavu-Third.png)
+![NovelDetailsPage-Dejavu-Third](readme_img/NovelDetailsPage-Dejavu-Third.png)
 
 - [UIの編集を担当しました。起承転結を英語にしたことがアピールポイントです](https://github.com/takuma-shishido/dejavu/commit/2874cb0886468a68e89cde6e3f9ba3c91851a2e0) by Aoi
 
 <br>
 
 ### WriteCommentsPage
-![WriteCommentsPage](WriteCommentsPage.png)
+![WriteCommentsPage](readme_img/WriteCommentsPage.png)
 - [え？？](https://github.com/takuma-shishido/dejavu/commit/4ef09884f020b46e901d5e8b370023e951ca7314) by everybody
 
 <br>
 
 ### Login Page
-![LoginPage-Dejavu](LoginPage-Dejavu.png)
+![LoginPage-Dejavu](readme_img/LoginPage-Dejavu.png)
 
 - [ウザァいえ？？それをれ？俺のこと？宇宙のこと？？俺はエイリアンだから違うね。僕に開発は早いよ君らだから大丈夫そ？僕はログイン専門家さ。アカウントIDをなくすなんてへっちゃらさ 99%僕が担当しました。たくま大丈夫そ？じゃあ今からエイリアン作り直してみる？](https://github.com/takuma-shishido/dejavu/commit/80ddc5a8100c214f59de6dee381f8231959ccaea) by Utyuu & Takuma or マッドサイエンティスト
 
@@ -101,10 +106,11 @@
 <br>
 
 ### Sign Up Page
-![SignUpPage-Dejavu](SignUpPage-Dejavu.png)
+![SignUpPage-Dejavu](readme_img/SignUpPage-Dejavu.png)
 
 - [お月様こんばんは〜あおい？？ん？？なんかDEJAVUさエラーでない？？出ないよ。寿司ラーメンを食べたじゃん？それが胃から戻ってきたんだよね。リードしたら胃から出てきたよ。ちょっと見てもらっていいですか？](https://github.com/takuma-shishido/dejavu/commit/80ddc5a8100c214f59de6dee381f8231959ccaea) by Utyuu
 
+<br>
 
 ## Team Member
 - Leader: [Takuma Shishido](https://github.com/takuma-shishido) (33 contributes)
