@@ -115,28 +115,28 @@
 <br>
 
 ## 🧉 How to Build DEJAVU
-- 1. Write this command on the terminal
+- 1. Execute this command on the terminal
 ```
 $ git clone https://github.com/takuma-shishido/dejavu.git
 ```
 
 <br>
 
-- 2. Write this command on the terminal
+- 2. Execute this command on the terminal
 ```
 $ pip3 install django
 ```
 
 <br>
 
-- 3. Write this command on the terminal
+- 3. Execute this command on the terminal
 ```
 $ docker-compose build
 ```
 
 <br>
 
-- 4. Write this command on the terminal
+- 4. Execute this command on the terminal
 ```
 $ docker-compose up -d
 ```
