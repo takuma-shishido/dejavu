@@ -15,9 +15,7 @@ class SignUpForm(UserCreationForm):
             "email",
             "first_name",
             "last_name",
-            "birth_date",
         )
-
 
 class LoginFrom(AuthenticationForm):
     class Meta:

@@ -49,10 +49,17 @@
 
         </div>
         <!-- create book button -->
+        {% if request.user.is_authenticated == True %}
         <a href="{% url 'dejavu_app:create_novel' %}"
             class="bg-neutral-400 rounded-ee-3xl rounded-se-3xl w-72 h-44 content-center items-center flex justify-center"><img
                 class="w-11" src="../static/img/plus.png" alt="plus button">
         </a>
+        {% else %}
+        <a href=""
+            class="bg-neutral-400 rounded-ee-3xl rounded-se-3xl w-72 h-44 content-center items-center flex justify-center"><img
+                class="w-11" src="../static/img/plus.png" alt="plus button">
+        </a>
+        {% endif %}
         <div class="flex overflow-x-auto mt-28 break-words line-clamp-3 h-80 ">
             {% for novel in middle_novels %}
             <!-- 書籍の表紙の画像 -->
