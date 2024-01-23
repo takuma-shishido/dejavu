@@ -34,6 +34,7 @@
 - ペルソナ:　[DEJAVU PERSONA](https://docs.google.com/spreadsheets/d/1ncy-5R4Dad6RDKqWLslk-PTauZW9SM_X/edit#gid=1803559359)
 - アイデアたち:　[DEJAVU IDEAS](https://docs.google.com/spreadsheets/d/1ncy-5R4Dad6RDKqWLslk-PTauZW9SM_X/edit#gid=2123999459)
 - 要件定義書:　[DEJAVU REQUIREMENTS DEFINITION](https://docs.google.com/spreadsheets/d/1ncy-5R4Dad6RDKqWLslk-PTauZW9SM_X/edit#gid=752554769)
+- Google スライド:　[DEJAVU GOOGLE SLIDES](https://docs.google.com/presentation/d/1_YzPPT99vnZcva0KCs9mssEpRhTKl3wyvpqFQcP-FIc/edit?usp=sharing)
 
 <br>
 
