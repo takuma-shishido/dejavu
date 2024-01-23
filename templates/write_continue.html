@@ -51,12 +51,8 @@
                 {% if field.label == "Content" %}
                 {% endif %}
                 {{ field|add_class:"bg-neutral-300 border rounded-2xl w-full h-64 p-2" }}
-                {{ field.label }}
-                {{ field }}
                 {{ field.errors }}
-                {% endfor %}
-                <!-- <td type="text" class="bg-gray-100"> {{form.content}} </td> -->
-            </div>
+                {% endfor %}            </div>
             <div class="flex items-center justify-center bg-slate-950 mt-12 text-2xl p-5 w-32 rounded-3xl">
                 <button type="submit" class="text-white">
                     Post
