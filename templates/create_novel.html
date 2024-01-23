@@ -36,8 +36,8 @@
                         <label class="text-4xl block" for="introduction">起承転結の起：</label>
                         {{ form.introduction|add_class:"bg-gray-100 border rounded-md p-2 w-full h-32" }}
                     </div>
-                    <div class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl mx-auto">
-                        <button type="submit" class="text-white">投稿</button>
+                    <div class="">
+                        <button type="submit" class="flex items-center justify-center bg-stone-500 mt-12 text-2xl p-5 w-32 rounded-3xl mx-auto text-white">投稿</button>
                         {% csrf_token %}
                     </div>
                 </form>

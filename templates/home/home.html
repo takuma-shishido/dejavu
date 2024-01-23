@@ -17,27 +17,20 @@
         </a>
     </div>
     {% else %}
-    <div class="flex-row text-right pt-5  pl-5">
+    <div class="flex flex-row text-right pt-5  pl-5">
         <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center"
             href="{% url 'accounts:login' %}">
             <h1 class="text-xl text-black">Login</h1>
         </a>
-    </div>
-    <div class="flex-row text-right pt-5  pl-5">
-        <a class="w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center"
+        <a class="ml-10 w-32 h-10 bg-neutral-400 rounded-3xl flex items-center justify-center"
             href="{% url 'accounts:signup' %}">
             <h1 class="text-xl text-black">Signup</h1>
         </a>
     </div>
 
-    {% endif %}
-    <!-- 一応 logo -->
-    <!-- <div class="w-32 ">
 
-        <img class="text-2xl w-20 fixed" src="../static/img/logo-sub.PNG"></img>
-    </div> -->
-    <!-- <div class="ml-10 mt-10 text-2xl">logo</div> -->
-    <div class="text-center m-10 flex-wrap inset-0 flex items-center justify-center">
+    {% endif %}
+    <div class="text-center m-20 flex-wrap inset-0 flex items-center justify-center">
         <!-- write continue button -->
         <!-- ここはis_finishがfalseのデータだけを取り出して、homeに表示させる？？（別のページ作るか〜） -->
         <a href=""
@@ -71,8 +64,8 @@
             {% for novel in middle_novels %}
             <!-- 書籍の表紙の画像 -->
             <div class="h-72 bg-neutral-500 p-28 rounded-e-3xl"></div>
-            <div class="flex flex-col w-96 h-10 ">
-                <!-- book title ※item.titleのところで改行すると壊れる-->
+            <div class="flex flex-col w-96 h-10">
+                <!-- book title ※ item.titleのところで改行すると壊れる-->
                 <div class="w-56 text-left text-2xl font-sans pl-10 pt-5 pb-16 break-words line-clamp-3 truncate">
                     {{novel.title }}</div>
                 <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->
