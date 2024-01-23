@@ -38,6 +38,7 @@
     </nav>
     {% endif %}
     <div class="text-center flex-wrap inset-0 flex items-center justify-center">
+
         <!-- write continue button -->
         <!-- ここはis_finishがfalseのデータだけを取り出して、homeに表示させる？？（別のページ作るか〜） -->
         <a href=""
@@ -56,16 +57,23 @@
 
         </div>
         <!-- create book button -->
+        {% if request.user.is_authenticated == True %}
         <a href="{% url 'dejavu_app:create_novel' %}"
             class="bg-neutral-400 rounded-ee-3xl rounded-se-3xl w-72 h-44 content-center items-center flex justify-center"><img
                 class="w-11" src="../static/img/plus.png" alt="plus button">
         </a>
+        {% else %}
+        <a href=""
+            class="bg-neutral-400 rounded-ee-3xl rounded-se-3xl w-72 h-44 content-center items-center flex justify-center"><img
+                class="w-11" src="../static/img/plus.png" alt="plus button">
+        </a>
+        {% endif %}
         <div class="flex overflow-x-auto mt-28 break-words line-clamp-3 h-80 ">
             {% for novel in middle_novels %}
             <!-- 書籍の表紙の画像 -->
             <div class="h-72 bg-neutral-500 p-28 rounded-e-3xl"></div>
-            <div class="flex flex-col w-96 h-10 ">
-                <!-- book title ※item.titleのところで改行すると壊れる-->
+            <div class="flex flex-col w-96 h-10">
+                <!-- book title ※ item.titleのところで改行すると壊れる-->
                 <div class="w-56 text-left text-2xl font-sans pl-10 pt-5 pb-16 break-words line-clamp-3 truncate">
                     {{novel.title }}</div>
                 <!-- PROBLEM   溢れた文字を...にしようとすると全ての文字が消える -->

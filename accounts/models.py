@@ -57,11 +57,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True,
         blank=False
     )
-    birth_date = models.DateField(
-        verbose_name=_("birth_date"),
-        blank=True,
-        null=True
-    )
     is_superuser = models.BooleanField(
         verbose_name=_("is_superuer"),
         default=False

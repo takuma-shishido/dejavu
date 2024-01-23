@@ -1,23 +1,28 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<div class="h1 mt-5 pt-5"><font color="#5f9ea0">Create account</font></div>
+<div class="h1 mt-5 pt-5"><font color="dodgerblue">Create account</font></div>
+
 {% endblock %}
 
 {% block content %}
 <div>
   <br>
   <form method="POST">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    {% for field in form %}
-    {% if field.label != "Account_id" %}
-      {{ field.label }}
-      {{ field }}
-      {{ field.errors }}
-    {% endif %}
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+    <input type="email" name="email" maxlength="254" autofocus="" required="" id="id_email" value="" placeholder="Email">
     <br>
-    {% endfor %}
+    <input type="text" name="first_name" maxlength="150" required="" id="id_first_name" value="" placeholder="Fast_name">
+    <br>
+    <input type="text" name="last_name" maxlength="150" required="" id="id_last_name" value="" placeholder="Last_name">
+    {{ field.label }}
+    {{ field }}
+    {{ field.errors }}
+    <br>
+    <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" value="" placeholder="Password">
+    <br>
+    <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" value="" placeholder="Password (cfm)">
     <div class="mt-3">
       <button type="submit" class="btn btn-primary">Create</button>
       <a href="{% url 'dejavu_app:home' %}" class="btn btn-secondary">Back</a>
