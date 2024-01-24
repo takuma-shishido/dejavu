@@ -118,32 +118,15 @@
 - 1. Execute this command on the terminal
 ```
 $ git clone https://github.com/takuma-shishido/dejavu.git
-```
-
-<br>
-
-- 2. Execute this command on the terminal
-```
-$ pip3 install django
-```
-
-<br>
-
-- 3. Execute this command on the terminal
-```
 $ docker-compose build
-```
-
-<br>
-
-- 4. Execute this command on the terminal
-```
+$ docker-compose run web python3 manage.py makemigrations dejavu_app
+$ docker-compose run web python3 manage.py migrate
 $ docker-compose up -d
 ```
 
 <br>
 
-###  **5. Then if you checked `http://localhost:8001/` , you can see all of DEJAVU**
+###  **2. Then if you checked `http://localhost:8001/` , you can see all of DEJAVU**
 
 
 <br>
