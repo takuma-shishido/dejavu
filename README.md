@@ -131,7 +131,7 @@ $ docker-compose up -d
 
 <br>
 
-## 🧶 Team Member
+## 🧶 Team Members
 - Leader: [Takuma Shishido](https://github.com/takuma-shishido) (33 contributes)
 - Sub Leader: [Amit Commit](https://github.com/amitB034) (21 contributes)
 - Boss: [Aoi Orio](https://github.com/aoiorio) (30 contributes)
