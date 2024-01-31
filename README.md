@@ -115,7 +115,7 @@
 <br>
 
 ## 🧉 How to Build DEJAVU
-- 1. Execute this command on the terminal
+- i. Execute this command on the terminal
 ```
 $ git clone https://github.com/takuma-shishido/dejavu.git
 $ docker-compose build
@@ -126,7 +126,7 @@ $ docker-compose up -d
 
 <br>
 
-###  **2. Then if you checked `http://localhost:8001/` , you can see all of DEJAVU**
+###  **ii. Then if you checked `http://localhost:8001/` , you can see all of DEJAVU**
 
 
 <br>
